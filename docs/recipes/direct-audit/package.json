@@ -1,5 +1,0 @@
-{
-  "dependencies": {
-    "lighthouse": "file:../../../dist/lighthouse.tgz"
-  }
-}

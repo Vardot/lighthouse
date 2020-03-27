@@ -544,7 +544,7 @@ describe('.gotoURL', () => {
   describe('when waitForLoad', () => {
     const url = 'https://example.com';
 
-    ['FCP', 'LoadEvent', 'NetworkIdle', 'CPUIdle'].forEach(name => {
+    ['Fcp', 'LoadEvent', 'NetworkIdle', 'CPUIdle'].forEach(name => {
       it(`should wait for ${name}`, async () => {
         driver._waitForFcp = createMockWaitForFn();
         driver._waitForLoadEvent = createMockWaitForFn();

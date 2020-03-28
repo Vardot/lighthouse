@@ -67,8 +67,8 @@ module.exports = {
     'uses-text-compression': str_(UIStrings.uses_text_compression),
     'uses-responsive-images': str_(UIStrings.uses_responsive_images),
     'time-to-first-byte': str_(UIStrings.time_to_first_byte),
-    'uses-rel-preconnect':  str_(UIStrings.uses_rel_preconnect),
-    'font-display':  str_(UIStrings.font_display),
+    'uses-rel-preconnect': str_(UIStrings.uses_rel_preconnect),
+    'font-display': str_(UIStrings.font_display),
   },
 };
 module.exports.UIStrings = UIStrings;

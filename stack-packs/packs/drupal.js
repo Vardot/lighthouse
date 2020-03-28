@@ -44,22 +44,6 @@ const UIStrings = {
   uses_rel_preconnect: 'Preconnect or dns-prefetch resource hints can be added by enabled through the [Advanced CSS/JS Aggregation](https://www.drupal.org/project/advagg) module. You can also consider [installing a module](https://www.drupal.org/search/site/preconnect?f%5B0%5D=ss_meta_type%3Amodule) that provides facilities for user agent resource hints.',
   /** Additional description of a Lighthouse audit that tells the user how they can specify font-display, in the context of the Drupal CMS platform. This is displayed after a user expands the section to see more. No character length limits. Links in (parenthesis) become link texts to additional documentation. */
   font_display: 'Specify `@font-display` when defining custom fonts in your theme.',
-  /** Additional description of a Lighthouse audit that tells the user how they can add preload tags, in the context of the Drupal CMS platform. This is displayed after a user expands the section to see more. No character length limits. Links in (parenthesis) become link texts to additional documentation. */
-  uses_rel_preload: ' ',
-  /** Additional description of a Lighthouse audit that tells the user how they can optimize their site for for mobile screens by setting the viewport meta tag, in the context of the Drupal CMS platform. This is displayed after a user expands the section to see more. No character length limits. Links in (parenthesis) become link texts to additional documentation. */
-  viewport: ' ',
-  /** Additional description of a Lighthouse audit that tells the user how they can improve their site's SEO by providing a page title, in the context of the Drupal CMS platform. This is displayed after a user expands the section to see more. No character length limits. Links in (parenthesis) become link texts to additional documentation. */
-  document_title: ' ',
-  /** Additional description of a Lighthouse audit that tells the user how they can improve their site's SEO by providing a meta description tag, in the context of the Drupal CMS platform. This is displayed after a user expands the section to see more. No character length limits. Links in (parenthesis) become link texts to additional documentation. */
-  meta_description: ' ',
-  /** Additional description of a Lighthouse audit that tells the user how they can improve their site's SEO by making sure the site is crawlable to search engines, in the context of the Drupal CMS platform. This is displayed after a user expands the section to see more. No character length limits. Links in (parenthesis) become link texts to additional documentation. */
-  is_crawlable: ' ',
-  /** Additional description of a Lighthouse audit that tells the user how they can improve their site's SEO by including an image ALT attribute, in the context of the Drupal CMS platform. This is displayed after a user expands the section to see more. No character length limits. Links in (parenthesis) become link texts to additional documentation. */
-  image_alt: ' ',
-  /** Additional description of a Lighthouse audit that tells the user how they can improve their site's SEO by defning a hreflang attribute, in the context of the Drupal CMS platform. This is displayed after a user expands the section to see more. No character length limits. Links in (parenthesis) become link texts to additional documentation. */
-  hreflang: ' ',
-  /** Additional description of a Lighthouse audit that tells the user how they can improve their site's SEO by defning a canonical tag, in the context of the Drupal CMS platform. This is displayed after a user expands the section to see more. No character length limits. Links in (parenthesis) become link texts to additional documentation. */
-  canonical: ' ',
 };
 
 const str_ = i18n.createMessageInstanceIdFn(__filename, UIStrings);
@@ -85,14 +69,6 @@ module.exports = {
     'time-to-first-byte': str_(UIStrings.time_to_first_byte),
     'uses-rel-preconnect':  str_(UIStrings.uses_rel_preconnect),
     'font-display':  str_(UIStrings.font_display),
-    'uses-rel-preload':  str_(UIStrings.uses_rel_preload),
-    'viewport':  str_(UIStrings.viewport),
-    'document-title':  str_(UIStrings.document_title),
-    'meta-description':  str_(UIStrings.meta_description),
-    'is-crawlable':  str_(UIStrings.is_crawlable),
-    'image-alt':  str_(UIStrings.image_alt),
-    'hreflang':  str_(UIStrings.hreflang),
-    'canonical':  str_(UIStrings.canonical),
   },
 };
 module.exports.UIStrings = UIStrings;

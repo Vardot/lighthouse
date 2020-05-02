@@ -566,9 +566,6 @@
   "lighthouse-core/audits/dobetterweb/doctype.js | title": {
     "message": "Sayfa HTML DOCTYPE içeriyor"
   },
-  "lighthouse-core/audits/dobetterweb/dom-size.js | columnElement": {
-    "message": "Öğe"
-  },
   "lighthouse-core/audits/dobetterweb/dom-size.js | columnStatistic": {
     "message": "İstatistik"
   },
@@ -841,9 +838,6 @@
   },
   "lighthouse-core/audits/metrics/largest-contentful-paint.js | description": {
     "message": "En Büyük Zengin İçerikli Boyama, en büyük metnin veya resmin boyandığı zamanı işaret eder. [Daha Fazla Bilgi](https://web.dev/largest-contentful-paint)"
-  },
-  "lighthouse-core/audits/metrics/largest-contentful-paint.js | title": {
-    "message": "En Büyük Zengin İçerikli Boya"
   },
   "lighthouse-core/audits/metrics/max-potential-fid.js | description": {
     "message": "Kullanıcılarınızın karşılaşabileceği olası maksimum İlk Giriş Gecikmesi, en uzun görevin süresidir. [Daha fazla bilgi](https://web.dev/lighthouse-max-potential-fid)."

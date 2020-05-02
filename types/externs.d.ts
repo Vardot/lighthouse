@@ -209,7 +209,7 @@ declare global {
     export interface CliFlags extends Flags {
       _: string[];
       chromeIgnoreDefaultFlags: boolean;
-      chromeFlags: string;
+      chromeFlags: string | string[];
       /** Output path for the generated results. */
       outputPath: string;
       /** Flag to save the trace contents and screenshots to disk. */
@@ -308,6 +308,12 @@ declare global {
           url?: string;
           is_main_frame?: boolean;
           cumulative_score?: number;
+          nodeId?: number;
+          impacted_nodes?: Array<{
+            node_id: number,
+            old_rect?: Array<number>,
+            new_rect?: Array<number>,
+          }>;
         };
         frame?: string;
         name?: string;

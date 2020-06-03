@@ -1763,6 +1763,51 @@
   "stack-packs/packs/angular.js | uses_responsive_images": {
     "message": "Consider using the `BreakpointObserver` utility in the Component Dev Kit (CDK) to manage image breakpoints. [Learn more](https://material.angular.io/cdk/layout/overview)."
   },
+  "stack-packs/packs/drupal.js | efficient_animated_content": {
+    "message": "Consider uploading your animated GIFs to a service which will make it available to embed as an HTML5 video."
+  },
+  "stack-packs/packs/drupal.js | font_display": {
+    "message": "Specify `@font-display` when defining custom fonts in your theme."
+  },
+  "stack-packs/packs/drupal.js | offscreen_images": {
+    "message": "Install [a Drupal module](https://www.drupal.org/project/project_module?f%5B0%5D=&f%5B1%5D=&f%5B2%5D=im_vid_3%3A67&f%5B3%5D=&f%5B4%5D=sm_field_project_type%3Afull&f%5B5%5D=&f%5B6%5D=&text=%22lazy+load%22&solrsort=iss_project_release_usage+desc&op=Search) that can leverage JavaScript or [Intersection Observer API](https://developers.google.com/web/updates/2016/04/intersectionobserver) lazy loading of images. Such modules provide the ability to defer any offscreen images to improve performance."
+  },
+  "stack-packs/packs/drupal.js | render_blocking_resources": {
+    "message": "Consider using a module to inline critical CSS and JavaScipt, or potentially load assets asynchronously via JavaScript such as the [Advanced CSS/JS Aggregation](https://www.drupal.org/project/advagg) module. Beware that optimizations provided by this module may break your site, so you will likely need to make code changes."
+  },
+  "stack-packs/packs/drupal.js | time_to_first_byte": {
+    "message": "Themes, modules, and server specifications all contribute to server response time. Consider finding a more optimized theme, carefully selecting an optimization module, and/or upgrading your server. Your hosting servers should make use of PHP opcode caching, memory-caching to reduce database query times such as Redis or Memcached, as well as optimized application logic to prepare pages faster."
+  },
+  "stack-packs/packs/drupal.js | total_byte_weight": {
+    "message": "Consider using [Responsive Image Styles](https://www.drupal.org/docs/8/mobile-guide/responsive-images-in-drupal-8) to reduce the size of images loaded on your page. If you are using Views to show multiple content items on a page, consider implementing pagination to limit the number of content items shown on a given page."
+  },
+  "stack-packs/packs/drupal.js | unminified_css": {
+    "message": "Ensure you have enabled \"Aggregate CSS files\" in the \"Administration » Configuration » Development\" page. You can also configure more advanced aggregation options through [additional modules](https://www.drupal.org/project/project_module?f%5B0%5D=&f%5B1%5D=&f%5B2%5D=im_vid_3%3A123&f%5B3%5D=&f%5B4%5D=sm_field_project_type%3Afull&f%5B5%5D=&f%5B6%5D=&text=css+aggregation&solrsort=iss_project_release_usage+desc&op=Search) to speed up your site by concatenating, minifying, and compressing your CSS styles."
+  },
+  "stack-packs/packs/drupal.js | unminified_javascript": {
+    "message": "Ensure you have enabled \"Aggregate JavaScript files\" in the \"Administration » Configuration » Development\" page. You can also configure more advanced aggregation options through [additional modules](https://www.drupal.org/project/project_module?f%5B0%5D=&f%5B1%5D=&f%5B2%5D=im_vid_3%3A123&f%5B3%5D=&f%5B4%5D=sm_field_project_type%3Afull&f%5B5%5D=&f%5B6%5D=&text=javascript+aggregation&solrsort=iss_project_release_usage+desc&op=Search) to speed up your site by concatenating, minifying, and compressing your JavaScript assets."
+  },
+  "stack-packs/packs/drupal.js | unused_css_rules": {
+    "message": "Consider removing unused CSS rules and only attach the needed Drupal libraries to the relevant page or component in a page. See the [Drupal documentation link](https://www.drupal.org/docs/8/creating-custom-modules/adding-stylesheets-css-and-javascript-js-to-a-drupal-8-module#library) for details. To identify attached libraries that are adding extraneous CSS, try running [code coverage](https://developers.google.com/web/updates/2017/04/devtools-release-notes#coverage) in Chrome DevTools. You can identify the theme/module responsible from the URL of the stylesheet when CSS aggregation is disabled in your Drupal site. Look out for themes/modules that have many stylesheets in the list which have a lot of red in code coverage. A theme/module should only enqueue a stylesheet if it is actually used on the page."
+  },
+  "stack-packs/packs/drupal.js | unused_javascript": {
+    "message": "Consider removing unused JavaScipt assets and only attach the needed Drupal libraries to the relevant page or component in a page. See the [Drupal documentation link](https://www.drupal.org/docs/8/creating-custom-modules/adding-stylesheets-css-and-javascript-js-to-a-drupal-8-module#library) for details. To identify attached libraries that are adding extraneous JavaScript, try running [code coverage](https://developers.google.com/web/updates/2017/04/devtools-release-notes#coverage) in Chrome DevTools. You can identify the theme/module responsible from the URL of the script when JavaScript aggregation is disabled in your Drupal site. Look out for themes/modules that have many scripts in the list which have a lot of red in code coverage. A theme/module should only enqueue a script if it is actually used on the page."
+  },
+  "stack-packs/packs/drupal.js | uses_long_cache_ttl": {
+    "message": "Set the \"Browser and proxy cache maximum age\" in the \"Administration » Configuration » Development\" page. Read about [Drupal cache and optimizing for performance](https://www.drupal.org/docs/7/managing-site-performance-and-scalability/caching-to-improve-performance/caching-overview#s-drupal-performance-resources)."
+  },
+  "stack-packs/packs/drupal.js | uses_optimized_images": {
+    "message": "Consider using [a module](https://www.drupal.org/project/project_module?f%5B0%5D=&f%5B1%5D=&f%5B2%5D=im_vid_3%3A123&f%5B3%5D=&f%5B4%5D=sm_field_project_type%3Afull&f%5B5%5D=&f%5B6%5D=&text=optimize+images&solrsort=iss_project_release_usage+desc&op=Search) that automatically optimizes and reduces the size of images uploaded through the site while retaining quality. Also, ensure you are using the native [Responsive Image Styles](https://www.drupal.org/docs/8/mobile-guide/responsive-images-in-drupal-8) provided from Drupal (available in Drupal 8 and above) for all images rendered on the site."
+  },
+  "stack-packs/packs/drupal.js | uses_rel_preconnect": {
+    "message": "Preconnect or dns-prefetch resource hints can be added by installing and configuring [a module](https://www.drupal.org/project/project_module?f%5B0%5D=&f%5B1%5D=&f%5B2%5D=&f%5B3%5D=&f%5B4%5D=sm_field_project_type%3Afull&f%5B5%5D=&f%5B6%5D=&text=dns-prefetch&solrsort=iss_project_release_usage+desc&op=Search) that provides facilities for user agent resource hints."
+  },
+  "stack-packs/packs/drupal.js | uses_responsive_images": {
+    "message": "Ensure that you are using the native [Responsive Image Styles](https://www.drupal.org/docs/8/mobile-guide/responsive-images-in-drupal-8) provided from Drupal (available in Drupal 8 and above). Use the Responsive Image Styles when rendering image fields through view modes, views, or images uploaded through the WYSIWYG editor."
+  },
+  "stack-packs/packs/drupal.js | uses_webp_images": {
+    "message": "Consider installing and configuring [a module to leverage WebP image formats](https://www.drupal.org/project/project_module?f%5B0%5D=&f%5B1%5D=&f%5B2%5D=&f%5B3%5D=&f%5B4%5D=sm_field_project_type%3Afull&f%5B5%5D=&f%5B6%5D=&text=webp&solrsort=iss_project_release_usage+desc&op=Search) in your site. Such modules would automatically generate a WebP version of your uploaded images to optimize loading times."
+  },
   "stack-packs/packs/magento.js | critical_request_chains": {
     "message": "If you are not bundling your JavaScript assets, consider using [baler](https://github.com/magento/baler)."
   },

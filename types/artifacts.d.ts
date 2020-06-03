@@ -110,6 +110,8 @@ declare global {
       Fonts: Artifacts.Font[];
       /** Information on poorly sized font usage and the text affected by it. */
       FontSize: Artifacts.FontSize;
+      /** The issues surfaced in the devtools Issues panel */
+      InspectorIssues: Artifacts.InspectorIssues;
       /** The page's document body innerText if loaded with JavaScript disabled. */
       HTMLWithoutJavaScript: {bodyText: string, hasNoScript: boolean};
       /** Whether the page ended up on an HTTPS page after attempting to load the HTTP version. */
@@ -140,7 +142,7 @@ declare global {
       TagsBlockingFirstPaint: Artifacts.TagBlockingFirstPaint[];
       /** Information about tap targets including their position and size. */
       TapTargets: Artifacts.TapTarget[];
-      /**  */
+      /** Elements associated with metrics (ie: Largest Contentful Paint element). */
       TraceElements: Artifacts.TraceElement[];
     }
 
@@ -318,13 +320,22 @@ declare global {
       /** @see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#Attributes */
       export interface AnchorElement {
         rel: string
+        /** The computed href property: https://www.w3.org/TR/DOM-Level-2-HTML/html.html#ID-88517319, use `rawHref` for the exact attribute value */
         href: string
+        /** The exact value of the href attribute value, as it is in the DOM */
+        rawHref: string
+        name?: string
         text: string
+        role: string
         target: string
         devtoolsNodePath: string
         selector: string
         nodeLabel: string
         outerHTML: string
+        onclick: string
+        listeners?: Array<{
+          type: Crdp.DOMDebugger.EventListener['type']
+        }>
       }
 
       export interface Font {
@@ -482,6 +493,10 @@ declare global {
         devicePixelRatio: number;
       }
 
+      export interface InspectorIssues {
+        mixedContent: Crdp.Audits.MixedContentIssueDetails[];
+      }
+
       // Computed artifact types below.
       export type CriticalRequestNode = {
         [id: string]: {
@@ -563,7 +578,6 @@ declare global {
         traceEnd: number;
         load?: number;
         domContentLoaded?: number;
-        cumulativeLayoutShift?: number;
       }
 
       export interface TraceOfTab {
@@ -637,7 +651,6 @@ declare global {
         observedNavigationStart: number;
         observedNavigationStartTs: number;
         observedCumulativeLayoutShift: number | undefined;
-        observedCumulativeLayoutShiftTs: number | undefined;
         observedFirstPaint: number | undefined;
         observedFirstPaintTs: number | undefined;
         observedFirstContentfulPaint: number;

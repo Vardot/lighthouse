@@ -19,6 +19,10 @@ const expectations = [
           async: false,
           defer: false,
           source: 'head',
+          // Only do a single assertion for `devtoolsNodePath`: this can be flaky for elements
+          // deep in the DOM, and the sample LHR test has plenty of places that would catch
+          // a regression in `devtoolsNodePath` calculation. Keep just one for the benefit
+          // of other smoke test runners.
           devtoolsNodePath: '2,HTML,0,HEAD,3,SCRIPT',
         },
         {
@@ -27,7 +31,6 @@ const expectations = [
           async: false,
           defer: false,
           source: 'head',
-          devtoolsNodePath: '2,HTML,0,HEAD,5,SCRIPT',
         },
         {
           type: null,
@@ -35,7 +38,6 @@ const expectations = [
           async: false,
           defer: false,
           source: 'head',
-          devtoolsNodePath: '2,HTML,0,HEAD,6,SCRIPT',
         },
         {
           type: null,
@@ -43,7 +45,7 @@ const expectations = [
           async: false,
           defer: false,
           source: 'body',
-          devtoolsNodePath: '2,HTML,1,BODY,0,DIV,3,SCRIPT',
+          content: /shadowRoot/,
         },
         {
           type: null,
@@ -51,7 +53,7 @@ const expectations = [
           async: false,
           defer: false,
           source: 'body',
-          devtoolsNodePath: '2,HTML,1,BODY,3,SCRIPT',
+          content: /generateInlineStyleWithSize/,
         },
         {
           type: null,
@@ -59,7 +61,6 @@ const expectations = [
           async: true,
           defer: false,
           source: 'body',
-          devtoolsNodePath: '2,HTML,1,BODY,1438,SCRIPT',
         },
         {
           type: null,
@@ -67,7 +68,6 @@ const expectations = [
           async: false,
           defer: false,
           source: 'body',
-          devtoolsNodePath: '2,HTML,1,BODY,1439,SCRIPT',
           content: /Used block #1/,
         },
         {
@@ -76,7 +76,6 @@ const expectations = [
           async: false,
           defer: false,
           source: 'body',
-          devtoolsNodePath: '2,HTML,1,BODY,1440,SCRIPT',
           content: /Unused block #1/,
         },
       ],
@@ -219,12 +218,13 @@ const expectations = [
         },
         'uses-responsive-images': {
           details: {
-            overallSavingsBytes: '82000 +/- 5000',
+            overallSavingsBytes: '108000 +/- 5000',
             items: {
-              0: {wastedPercent: '45 +/- 5', url: /lighthouse-1024x680.jpg/},
-              1: {wastedPercent: '72 +/- 5', url: /lighthouse-2048x1356.webp\?size0/},
-              2: {wastedPercent: '45 +/- 5', url: /lighthouse-480x320.webp/},
-              length: 3,
+              0: {wastedPercent: '56 +/- 5', url: /lighthouse-1024x680.jpg/},
+              1: {wastedPercent: '78 +/- 5', url: /lighthouse-2048x1356.webp\?size0/},
+              2: {wastedPercent: '56 +/- 5', url: /lighthouse-480x320.webp/},
+              3: {wastedPercent: '20 +/- 5', url: /lighthouse-480x320.jpg/},
+              length: 4,
             },
           },
         },

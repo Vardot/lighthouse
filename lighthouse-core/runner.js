@@ -107,6 +107,13 @@ class Runner {
       // Entering: conclusion of the lighthouse result object
       const lighthouseVersion = require('../package.json').version;
 
+      // Use version from gathering stage.
+      // If accessibility gatherer didn't run or errored, it won't be in credits.
+      const axeVersion = artifacts.Accessibility && artifacts.Accessibility.version;
+      const credits = {
+        'axe-core': axeVersion,
+      };
+
       /** @type {Object<string, LH.Audit.Result>} */
       const resultsById = {};
       for (const audit of auditResults) {
@@ -129,6 +136,7 @@ class Runner {
           networkUserAgent: artifacts.NetworkUserAgent,
           hostUserAgent: artifacts.HostUserAgent,
           benchmarkIndex: artifacts.BenchmarkIndex,
+          credits,
         },
         lighthouseVersion,
         fetchTime: artifacts.fetchTime,
@@ -302,7 +310,7 @@ class Runner {
         // If artifact was an error, output error result on behalf of audit.
         if (artifacts[artifactName] instanceof Error) {
           /** @type {Error} */
-          // @ts-ignore An artifact *could* be an Error, but caught here, so ignore elsewhere.
+          // @ts-expect-error An artifact *could* be an Error, but caught here, so ignore elsewhere.
           const artifactError = artifacts[artifactName];
 
           Sentry.captureException(artifactError, {
@@ -316,7 +324,7 @@ class Runner {
           // Create a friendlier display error and mark it as expected to avoid duplicates in Sentry
           const error = new LHError(LHError.errors.ERRORED_REQUIRED_ARTIFACT,
               {artifactName, errorMessage: artifactError.message});
-          // @ts-ignore Non-standard property added to Error
+          // @ts-expect-error Non-standard property added to Error
           error.expected = true;
           throw error;
         }
@@ -337,7 +345,7 @@ class Runner {
       const narrowedArtifacts = requestedArtifacts
         .reduce((narrowedArtifacts, artifactName) => {
           const requestedArtifact = artifacts[artifactName];
-          // @ts-ignore tsc can't yet express that artifactName is only a single type in each iteration, not a union of types.
+          // @ts-expect-error tsc can't yet express that artifactName is only a single type in each iteration, not a union of types.
           narrowedArtifacts[artifactName] = requestedArtifact;
           return narrowedArtifacts;
         }, /** @type {LH.Artifacts} */ ({}));

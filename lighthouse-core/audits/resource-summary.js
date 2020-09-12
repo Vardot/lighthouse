@@ -14,11 +14,11 @@ const UIStrings = {
   title: 'Keep request counts low and transfer sizes small',
   /** Description of a Lighthouse audit that tells the user that they can setup a budgets for the quantity and size of page resources. No character length limits. 'Learn More' becomes link text to additional documentation. */
   description: 'To set budgets for the quantity and size of page resources,' +
-    ' add a budget.json file. [Learn more](https://developers.google.com/web/tools/lighthouse/audits/budgets).',
-  /** [ICU Syntax] Label for an audit identifying the number of requests and kilobytes used to load the page. */
+    ' add a budget.json file. [Learn more](https://web.dev/use-lighthouse-for-performance-budgets/).',
+  /** [ICU Syntax] Label for an audit identifying the number of requests and kibibytes used to load the page. */
   displayValue: `{requestCount, plural, ` +
-    `=1 {1 request • {byteCount, number, bytes} KB} ` +
-    `other {# requests • {byteCount, number, bytes} KB}}`,
+    `=1 {1 request • {byteCount, number, bytes} KiB} ` +
+    `other {# requests • {byteCount, number, bytes} KiB}}`,
 };
 
 const str_ = i18n.createMessageInstanceIdFn(__filename, UIStrings);
@@ -51,7 +51,7 @@ class ResourceSummary extends Audit {
     const headings = [
       {key: 'label', itemType: 'text', text: str_(i18n.UIStrings.columnResourceType)},
       {key: 'requestCount', itemType: 'numeric', text: str_(i18n.UIStrings.columnRequests)},
-      {key: 'size', itemType: 'bytes', text: str_(i18n.UIStrings.columnTransferSize)},
+      {key: 'transferSize', itemType: 'bytes', text: str_(i18n.UIStrings.columnTransferSize)},
     ];
 
 
@@ -76,14 +76,14 @@ class ResourceSummary extends Audit {
         resourceType: type,
         label: strMappings[type],
         requestCount: summary[type].count,
-        size: summary[type].size,
+        transferSize: summary[type].transferSize,
       };
     });
     // Force third-party to be last, descending by size otherwise
     const thirdPartyRow = rows.find(r => r.resourceType === 'third-party') || [];
     const otherRows = rows.filter(r => r.resourceType !== 'third-party')
       .sort((a, b) => {
-        return b.size - a.size;
+        return b.transferSize - a.transferSize;
       });
     const tableItems = otherRows.concat(thirdPartyRow);
 
@@ -94,7 +94,7 @@ class ResourceSummary extends Audit {
       score: 1,
       displayValue: str_(UIStrings.displayValue, {
         requestCount: summary.total.count,
-        byteCount: summary.total.size,
+        byteCount: summary.total.transferSize,
       }),
     };
   }

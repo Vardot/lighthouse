@@ -5,6 +5,7 @@
  */
 'use strict';
 
+const {isUnderTest} = require('../lib/lh-env.js');
 const statistics = require('../lib/statistics.js');
 const Util = require('../report/html/renderer/util.js');
 
@@ -68,25 +69,40 @@ class Audit {
   /* eslint-enable no-unused-vars */
 
   /**
-   * Computes a clamped score between 0 and 1 based on the measured value. Score is determined by
-   * considering a log-normal distribution governed by the two control points, point of diminishing
-   * returns and the median value, and returning the percentage of sites that have higher value.
-   *
-   * @param {number} measuredValue
-   * @param {number} diminishingReturnsValue
-   * @param {number} medianValue
+   * Computes a score between 0 and 1 based on the measured `value`. Score is determined by
+   * considering a log-normal distribution governed by two control points (the 10th
+   * percentile value and the median value) and represents the percentage of sites that are
+   * greater than `value`.
+   * @param {{median: number, p10: number}} controlPoints
+   * @param {number} value
    * @return {number}
    */
-  static computeLogNormalScore(measuredValue, diminishingReturnsValue, medianValue) {
-    const distribution = statistics.getLogNormalDistribution(
-      medianValue,
-      diminishingReturnsValue
-    );
+  static computeLogNormalScore(controlPoints, value) {
+    const percentile = statistics.getLogNormalScore(controlPoints, value);
+    return clampTo2Decimals(percentile);
+  }
 
-    let score = distribution.computeComplementaryPercentile(measuredValue);
-    score = Math.min(1, score);
-    score = Math.max(0, score);
-    return clampTo2Decimals(score);
+  /**
+   * This catches typos in the `key` property of a heading definition of table/opportunity details.
+   * Throws an error if any of keys referenced by headings don't exist in at least one of the items.
+   *
+   * @param {LH.Audit.Details.Table['headings']|LH.Audit.Details.Opportunity['headings']} headings
+   * @param {LH.Audit.Details.Opportunity['items']|LH.Audit.Details.Table['items']} items
+   */
+  static assertHeadingKeysExist(headings, items) {
+    // If there are no items, there's nothing to check.
+    if (!items.length) return;
+    // Only do this in tests for now.
+    if (!isUnderTest) return;
+
+    for (const heading of headings) {
+      // `null` heading key means it's a column for subrows only
+      if (heading.key === null) continue;
+
+      const key = heading.key;
+      if (items.some(item => key in item)) continue;
+      throw new Error(`"${heading.key}" is missing from items`);
+    }
   }
 
   /**
@@ -104,6 +120,8 @@ class Audit {
         summary,
       };
     }
+
+    Audit.assertHeadingKeysExist(headings, results);
 
     return {
       type: 'table',
@@ -187,6 +205,8 @@ class Audit {
    * @return {LH.Audit.Details.Opportunity}
    */
   static makeOpportunityDetails(headings, items, overallSavingsMs, overallSavingsBytes) {
+    Audit.assertHeadingKeysExist(headings, items);
+
     return {
       type: 'opportunity',
       headings: items.length === 0 ? [] : headings,

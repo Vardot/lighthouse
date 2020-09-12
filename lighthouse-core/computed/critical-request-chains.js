@@ -7,7 +7,6 @@
 
 const makeComputedArtifact = require('./computed-artifact.js');
 const NetworkRequest = require('../lib/network-request.js');
-const assert = require('assert').strict;
 const NetworkRecords = require('./network-records.js');
 const MainResource = require('./main-resource.js');
 
@@ -21,7 +20,12 @@ class CriticalRequestChains {
    * @return {boolean}
    */
   static isCritical(request, mainResource) {
-    assert.ok(mainResource, 'mainResource not provided');
+    if (!mainResource) {
+      throw new Error('mainResource not provided');
+    }
+
+    // The main resource is always critical.
+    if (request.requestId === mainResource.requestId) return true;
 
     // Treat any preloaded resource as non-critical
     if (request.isLinkPreload) {
@@ -54,6 +58,10 @@ class CriticalRequestChains {
         request.mimeType && request.mimeType.startsWith('image/')) {
       return false;
     }
+
+    // Requests that have no initiatorRequest are typically ambiguous late-load assets.
+    // Even on the off chance they were important, we don't have any parent to display for them.
+    if (!request.initiatorRequest) return false;
 
     return ['VeryHigh', 'High', 'Medium'].includes(request.priority);
   }

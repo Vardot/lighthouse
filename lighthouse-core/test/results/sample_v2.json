@@ -1,11 +1,14 @@
 {
-  "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3358.0 Safari/537.36",
+  "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4232.0 Safari/537.36",
   "environment": {
     "networkUserAgent": "Mozilla/5.0 (Linux; Android 6.0.1; Nexus 5 Build/MRA58N) AppleWebKit/537.36(KHTML, like Gecko) Chrome/66.0.3359.30 Mobile Safari/537.36",
-    "hostUserAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3358.0 Safari/537.36",
-    "benchmarkIndex": 1000
+    "hostUserAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4232.0 Safari/537.36",
+    "benchmarkIndex": 1000,
+    "credits": {
+      "axe-core": "2.1.1"
+    }
   },
-  "lighthouseVersion": "6.0.0-beta.0",
+  "lighthouseVersion": "6.3.0",
   "fetchTime": "2018-03-13T00:55:45.840Z",
   "requestedUrl": "http://localhost:10200/dobetterweb/dbw_tester.html",
   "finalUrl": "http://localhost:10200/dobetterweb/dbw_tester.html",
@@ -14,7 +17,7 @@
     "is-on-https": {
       "id": "is-on-https",
       "title": "Does not use HTTPS",
-      "description": "All sites should be protected with HTTPS, even ones that don't handle sensitive data. HTTPS prevents intruders from tampering with or passively listening in on the communications between your app and your users, and is a prerequisite for HTTP/2 and many new web platform APIs. [Learn more](https://web.dev/is-on-https).",
+      "description": "All sites should be protected with HTTPS, even ones that don't handle sensitive data. This includes avoiding [mixed content](https://developers.google.com/web/fundamentals/security/prevent-mixed-content/what-is-mixed-content), where some resources are loaded over HTTP despite the initial request being servedover HTTPS. HTTPS prevents intruders from tampering with or passively listening in on the communications between your app and your users, and is a prerequisite for HTTP/2 and many new web platform APIs. [Learn more](https://web.dev/is-on-https/).",
       "score": 0,
       "scoreDisplayMode": "binary",
       "displayValue": "1 insecure request found",
@@ -25,11 +28,17 @@
             "key": "url",
             "itemType": "url",
             "text": "Insecure URL"
+          },
+          {
+            "key": "resolution",
+            "itemType": "text",
+            "text": "Request Resolution"
           }
         ],
         "items": [
           {
-            "url": "http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"
+            "url": "http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js",
+            "resolution": "Allowed"
           }
         ]
       }
@@ -37,21 +46,21 @@
     "redirects-http": {
       "id": "redirects-http",
       "title": "Does not redirect HTTP traffic to HTTPS",
-      "description": "If you've already set up HTTPS, make sure that you redirect all HTTP traffic to HTTPS in order to enable secure web features for all your users. [Learn more](https://web.dev/redirects-http).",
+      "description": "If you've already set up HTTPS, make sure that you redirect all HTTP traffic to HTTPS in order to enable secure web features for all your users. [Learn more](https://web.dev/redirects-http/).",
       "score": 0,
       "scoreDisplayMode": "binary"
     },
     "service-worker": {
       "id": "service-worker",
       "title": "Does not register a service worker that controls page and `start_url`",
-      "description": "The service worker is the technology that enables your app to use many Progressive Web App features, such as offline, add to homescreen, and push notifications. [Learn more](https://web.dev/service-worker).",
+      "description": "The service worker is the technology that enables your app to use many Progressive Web App features, such as offline, add to homescreen, and push notifications. [Learn more](https://web.dev/service-worker/).",
       "score": 0,
       "scoreDisplayMode": "binary"
     },
     "works-offline": {
       "id": "works-offline",
       "title": "Current page does not respond with a 200 when offline",
-      "description": "If you're building a Progressive Web App, consider using a service worker so that your app can work offline. [Learn more](https://web.dev/works-offline).",
+      "description": "If you're building a Progressive Web App, consider using a service worker so that your app can work offline. [Learn more](https://web.dev/works-offline/).",
       "score": 0,
       "scoreDisplayMode": "binary",
       "warnings": []
@@ -59,7 +68,7 @@
     "viewport": {
       "id": "viewport",
       "title": "Has a `<meta name=\"viewport\">` tag with `width` or `initial-scale`",
-      "description": "Add a `<meta name=\"viewport\">` tag to optimize your app for mobile screens. [Learn more](https://web.dev/viewport).",
+      "description": "Add a `<meta name=\"viewport\">` tag to optimize your app for mobile screens. [Learn more](https://web.dev/viewport/).",
       "score": 1,
       "scoreDisplayMode": "binary",
       "warnings": []
@@ -67,14 +76,14 @@
     "without-javascript": {
       "id": "without-javascript",
       "title": "Contains some content when JavaScript is not available",
-      "description": "Your app should display some content when JavaScript is disabled, even if it's just a warning to the user that JavaScript is required to use the app. [Learn more](https://web.dev/without-javascript).",
+      "description": "Your app should display some content when JavaScript is disabled, even if it's just a warning to the user that JavaScript is required to use the app. [Learn more](https://web.dev/without-javascript/).",
       "score": 1,
       "scoreDisplayMode": "binary"
     },
     "first-contentful-paint": {
       "id": "first-contentful-paint",
       "title": "First Contentful Paint",
-      "description": "First Contentful Paint marks the time at which the first text or image is painted. [Learn more](https://web.dev/first-contentful-paint).",
+      "description": "First Contentful Paint marks the time at which the first text or image is painted. [Learn more](https://web.dev/first-contentful-paint/).",
       "score": 0.51,
       "scoreDisplayMode": "numeric",
       "numericValue": 3969.135,
@@ -84,8 +93,8 @@
     "largest-contentful-paint": {
       "id": "largest-contentful-paint",
       "title": "Largest Contentful Paint",
-      "description": "Largest Contentful Paint marks the time at which the largest text or image is painted. [Learn More](https://web.dev/lighthouse-largest-contentful-paint)",
-      "score": 0.31,
+      "description": "Largest Contentful Paint marks the time at which the largest text or image is painted. [Learn More](https://web.dev/lighthouse-largest-contentful-paint/)",
+      "score": 0.28,
       "scoreDisplayMode": "numeric",
       "numericValue": 4927.278,
       "numericUnit": "millisecond",
@@ -94,7 +103,7 @@
     "first-meaningful-paint": {
       "id": "first-meaningful-paint",
       "title": "First Meaningful Paint",
-      "description": "First Meaningful Paint measures when the primary content of a page is visible. [Learn more](https://web.dev/first-meaningful-paint).",
+      "description": "First Meaningful Paint measures when the primary content of a page is visible. [Learn more](https://web.dev/first-meaningful-paint/).",
       "score": 0.51,
       "scoreDisplayMode": "numeric",
       "numericValue": 3969.136,
@@ -104,7 +113,7 @@
     "load-fast-enough-for-pwa": {
       "id": "load-fast-enough-for-pwa",
       "title": "Page load is fast enough on mobile networks",
-      "description": "A fast page load over a cellular network ensures a good mobile user experience. [Learn more](https://web.dev/load-fast-enough-for-pwa).",
+      "description": "A fast page load over a cellular network ensures a good mobile user experience. [Learn more](https://web.dev/load-fast-enough-for-pwa/).",
       "score": 1,
       "scoreDisplayMode": "binary",
       "numericValue": 4927.278,
@@ -113,7 +122,7 @@
     "speed-index": {
       "id": "speed-index",
       "title": "Speed Index",
-      "description": "Speed Index shows how quickly the contents of a page are visibly populated. [Learn more](https://web.dev/speed-index).",
+      "description": "Speed Index shows how quickly the contents of a page are visibly populated. [Learn more](https://web.dev/speed-index/).",
       "score": 0.74,
       "scoreDisplayMode": "numeric",
       "numericValue": 4417,
@@ -199,7 +208,7 @@
     "estimated-input-latency": {
       "id": "estimated-input-latency",
       "title": "Estimated Input Latency",
-      "description": "Estimated Input Latency is an estimate of how long your app takes to respond to user input, in milliseconds, during the busiest 5s window of page load. If your latency is higher than 50 ms, users may perceive your app as laggy. [Learn more](https://web.dev/estimated-input-latency).",
+      "description": "Estimated Input Latency is an estimate of how long your app takes to respond to user input, in milliseconds, during the busiest 5s window of page load. If your latency is higher than 50 ms, users may perceive your app as laggy. [Learn more](https://web.dev/estimated-input-latency/).",
       "score": 1,
       "scoreDisplayMode": "numeric",
       "numericValue": 16,
@@ -209,7 +218,7 @@
     "total-blocking-time": {
       "id": "total-blocking-time",
       "title": "Total Blocking Time",
-      "description": "Sum of all time periods between FCP and Time to Interactive, when task length exceeded 50ms, expressed in milliseconds. [Learn more](https://web.dev/lighthouse-total-blocking-time).",
+      "description": "Sum of all time periods between FCP and Time to Interactive, when task length exceeded 50ms, expressed in milliseconds. [Learn more](https://web.dev/lighthouse-total-blocking-time/).",
       "score": 1,
       "scoreDisplayMode": "numeric",
       "numericValue": 116.79800000000023,
@@ -219,7 +228,7 @@
     "max-potential-fid": {
       "id": "max-potential-fid",
       "title": "Max Potential First Input Delay",
-      "description": "The maximum potential First Input Delay that your users could experience is the duration of the longest task. [Learn more](https://web.dev/lighthouse-max-potential-fid).",
+      "description": "The maximum potential First Input Delay that your users could experience is the duration of the longest task. [Learn more](https://web.dev/lighthouse-max-potential-fid/).",
       "score": 0.92,
       "scoreDisplayMode": "numeric",
       "numericValue": 122.537,
@@ -229,7 +238,7 @@
     "cumulative-layout-shift": {
       "id": "cumulative-layout-shift",
       "title": "Cumulative Layout Shift",
-      "description": "Cumulative Layout Shift measures the movement of visible elements within the viewport. [Learn more](https://web.dev/cls).",
+      "description": "Cumulative Layout Shift measures the movement of visible elements within the viewport. [Learn more](https://web.dev/cls/).",
       "score": 0.23,
       "scoreDisplayMode": "numeric",
       "numericValue": 0.42,
@@ -247,7 +256,7 @@
     "errors-in-console": {
       "id": "errors-in-console",
       "title": "Browser errors were logged to the console",
-      "description": "Errors logged to the console indicate unresolved problems. They can come from network request failures and other browser concerns. [Learn more](https://web.dev/errors-in-console)",
+      "description": "Errors logged to the console indicate unresolved problems. They can come from network request failures and other browser concerns. [Learn more](https://web.dev/errors-in-console/)",
       "score": 0,
       "scoreDisplayMode": "binary",
       "details": {
@@ -293,10 +302,10 @@
         ]
       }
     },
-    "time-to-first-byte": {
-      "id": "time-to-first-byte",
-      "title": "Server response times are low (TTFB)",
-      "description": "Time To First Byte identifies the time at which your server sends a response. [Learn more](https://web.dev/time-to-first-byte).",
+    "server-response-time": {
+      "id": "server-response-time",
+      "title": "Initial server response time was short",
+      "description": "Keep the server response time for the main document short because all other requests depend on it. [Learn more](https://web.dev/time-to-first-byte/).",
       "score": 1,
       "scoreDisplayMode": "binary",
       "numericValue": 570.5630000000001,
@@ -304,15 +313,31 @@
       "displayValue": "Root document took 570 ms",
       "details": {
         "type": "opportunity",
-        "overallSavingsMs": -29.436999999999898,
-        "headings": [],
-        "items": []
+        "headings": [
+          {
+            "key": "url",
+            "valueType": "url",
+            "label": "URL"
+          },
+          {
+            "key": "responseTime",
+            "valueType": "timespanMs",
+            "label": "Time Spent"
+          }
+        ],
+        "items": [
+          {
+            "url": "http://localhost:10200/dobetterweb/dbw_tester.html",
+            "responseTime": 570.5630000000001
+          }
+        ],
+        "overallSavingsMs": 470.5630000000001
       }
     },
     "first-cpu-idle": {
       "id": "first-cpu-idle",
       "title": "First CPU Idle",
-      "description": "First CPU Idle marks the first time at which the page's main thread is quiet enough to handle input.  [Learn more](https://web.dev/first-cpu-idle).",
+      "description": "First CPU Idle marks the first time at which the page's main thread is quiet enough to handle input.  [Learn more](https://web.dev/first-cpu-idle/).",
       "score": 0.72,
       "scoreDisplayMode": "numeric",
       "numericValue": 4927.278,
@@ -322,7 +347,7 @@
     "interactive": {
       "id": "interactive",
       "title": "Time to Interactive",
-      "description": "Time to interactive is the amount of time it takes for the page to become fully interactive. [Learn more](https://web.dev/interactive).",
+      "description": "Time to interactive is the amount of time it takes for the page to become fully interactive. [Learn more](https://web.dev/interactive/).",
       "score": 0.78,
       "scoreDisplayMode": "numeric",
       "numericValue": 4927.278,
@@ -332,7 +357,7 @@
     "user-timings": {
       "id": "user-timings",
       "title": "User Timing marks and measures",
-      "description": "Consider instrumenting your app with the User Timing API to measure your app's real-world performance during key user experiences. [Learn more](https://web.dev/user-timings).",
+      "description": "Consider instrumenting your app with the User Timing API to measure your app's real-world performance during key user experiences. [Learn more](https://web.dev/user-timings/).",
       "score": null,
       "scoreDisplayMode": "notApplicable",
       "details": {
@@ -344,7 +369,7 @@
     "critical-request-chains": {
       "id": "critical-request-chains",
       "title": "Avoid chaining critical requests",
-      "description": "The Critical Request Chains below show you what resources are loaded with a high priority. Consider reducing the length of chains, reducing the download size of resources, or deferring the download of unnecessary resources to improve page load. [Learn more](https://web.dev/critical-request-chains).",
+      "description": "The Critical Request Chains below show you what resources are loaded with a high priority. Consider reducing the length of chains, reducing the download size of resources, or deferring the download of unnecessary resources to improve page load. [Learn more](https://web.dev/critical-request-chains/).",
       "score": null,
       "scoreDisplayMode": "informative",
       "displayValue": "12 chains found",
@@ -469,28 +494,19 @@
                 }
               }
             }
-          },
-          "75994.33": {
-            "request": {
-              "url": "http://localhost:10200/favicon.ico",
-              "startTime": 185608.288594,
-              "endTime": 185608.857719,
-              "responseReceivedTime": 185608.85586200003,
-              "transferSize": 221
-            }
           }
         },
         "longestChain": {
-          "duration": 5536.498000001302,
-          "length": 1,
-          "transferSize": 221
+          "duration": 4796.288000012282,
+          "length": 2,
+          "transferSize": 30174
         }
       }
     },
     "redirects": {
       "id": "redirects",
       "title": "Avoid multiple page redirects",
-      "description": "Redirects introduce additional delays before the page can be loaded. [Learn more](https://web.dev/redirects).",
+      "description": "Redirects introduce additional delays before the page can be loaded. [Learn more](https://web.dev/redirects/).",
       "score": 1,
       "scoreDisplayMode": "numeric",
       "numericValue": 0,
@@ -506,7 +522,7 @@
     "installable-manifest": {
       "id": "installable-manifest",
       "title": "Web app manifest does not meet the installability requirements",
-      "description": "Browsers can proactively prompt users to add your app to their homescreen, which can lead to higher engagement. [Learn more](https://web.dev/installable-manifest).",
+      "description": "Browsers can proactively prompt users to add your app to their homescreen, which can lead to higher engagement. [Learn more](https://web.dev/installable-manifest/).",
       "score": 0,
       "scoreDisplayMode": "binary",
       "explanation": "Failures: No manifest was fetched.",
@@ -517,6 +533,7 @@
             "failures": [
               "No manifest was fetched"
             ],
+            "manifestUrl": null,
             "isParseFailure": true,
             "parseFailureReason": "No manifest was fetched"
           }
@@ -534,7 +551,7 @@
     "splash-screen": {
       "id": "splash-screen",
       "title": "Is not configured for a custom splash screen",
-      "description": "A themed splash screen ensures a high-quality experience when users launch your app from their homescreens. [Learn more](https://web.dev/splash-screen).",
+      "description": "A themed splash screen ensures a high-quality experience when users launch your app from their homescreens. [Learn more](https://web.dev/splash-screen/).",
       "score": 0,
       "scoreDisplayMode": "binary",
       "explanation": "Failures: No manifest was fetched.",
@@ -554,7 +571,7 @@
     "themed-omnibox": {
       "id": "themed-omnibox",
       "title": "Does not set a theme color for the address bar.",
-      "description": "The browser address bar can be themed to match your site. [Learn more](https://web.dev/themed-omnibox).",
+      "description": "The browser address bar can be themed to match your site. [Learn more](https://web.dev/themed-omnibox/).",
       "score": 0,
       "scoreDisplayMode": "binary",
       "explanation": "Failures: No manifest was fetched,\nNo `<meta name=\"theme-color\">` tag found.",
@@ -576,7 +593,7 @@
     "maskable-icon": {
       "id": "maskable-icon",
       "title": "Manifest doesn't have a maskable icon",
-      "description": "A maskable icon ensures that the image fills the entire shape without being letterboxed when installing the app on a device. [Learn more](https://web.dev/maskable-icon/).",
+      "description": "A maskable icon ensures that the image fills the entire shape without being letterboxed when installing the app on a device. [Learn more](https://web.dev/maskable-icon-audit/).",
       "score": 0,
       "scoreDisplayMode": "binary",
       "explanation": "No manifest was fetched"
@@ -584,7 +601,7 @@
     "content-width": {
       "id": "content-width",
       "title": "Content is sized correctly for the viewport",
-      "description": "If the width of your app's content doesn't match the width of the viewport, your app might not be optimized for mobile screens. [Learn more](https://web.dev/content-width).",
+      "description": "If the width of your app's content doesn't match the width of the viewport, your app might not be optimized for mobile screens. [Learn more](https://web.dev/content-width/).",
       "score": 1,
       "scoreDisplayMode": "binary",
       "explanation": ""
@@ -592,7 +609,7 @@
     "image-aspect-ratio": {
       "id": "image-aspect-ratio",
       "title": "Displays images with incorrect aspect ratio",
-      "description": "Image display dimensions should match natural aspect ratio. [Learn more](https://web.dev/image-aspect-ratio).",
+      "description": "Image display dimensions should match natural aspect ratio. [Learn more](https://web.dev/image-aspect-ratio/).",
       "score": 0,
       "scoreDisplayMode": "binary",
       "warnings": [],
@@ -632,8 +649,8 @@
     },
     "image-size-responsive": {
       "id": "image-size-responsive",
-      "title": "Displays images with inappropriate size",
-      "description": "Image natural dimensions should be proportional to the display size and the pixel ratio to maximize image clarity. [Learn more](https://web.dev/image-size-responsive).",
+      "title": "Serves images with low resolution",
+      "description": "Image natural dimensions should be proportional to the display size and the pixel ratio to maximize image clarity. [Learn more](https://web.dev/serve-responsive-images/).",
       "score": 0,
       "scoreDisplayMode": "binary",
       "details": {
@@ -678,10 +695,32 @@
         ]
       }
     },
+    "preload-fonts": {
+      "id": "preload-fonts",
+      "title": "Fonts with `font-display: optional` are not preloaded",
+      "description": "Preload `optional` fonts so first-time visitors may use them. [Learn More](https://web.dev/preload-optional-fonts/)",
+      "score": 0,
+      "scoreDisplayMode": "binary",
+      "details": {
+        "type": "table",
+        "headings": [
+          {
+            "key": "url",
+            "itemType": "url",
+            "text": "URL"
+          }
+        ],
+        "items": [
+          {
+            "url": "http://localhost:10503/perf/lobster-two-v10-latin-700.woff2?cors=true"
+          }
+        ]
+      }
+    },
     "deprecations": {
       "id": "deprecations",
       "title": "Uses deprecated APIs",
-      "description": "Deprecated APIs will eventually be removed from the browser. [Learn more](https://web.dev/deprecations).",
+      "description": "Deprecated APIs will eventually be removed from the browser. [Learn more](https://web.dev/deprecations/).",
       "score": 0,
       "scoreDisplayMode": "binary",
       "displayValue": "3 warnings found",
@@ -729,7 +768,7 @@
     "mainthread-work-breakdown": {
       "id": "mainthread-work-breakdown",
       "title": "Minimizes main-thread work",
-      "description": "Consider reducing the time spent parsing, compiling and executing JS. You may find delivering smaller JS payloads helps with this. [Learn more](https://web.dev/mainthread-work-breakdown)",
+      "description": "Consider reducing the time spent parsing, compiling and executing JS. You may find delivering smaller JS payloads helps with this. [Learn more](https://web.dev/mainthread-work-breakdown/)",
       "score": 0.96,
       "scoreDisplayMode": "numeric",
       "numericValue": 1548.5690000000002,
@@ -792,7 +831,7 @@
     "bootup-time": {
       "id": "bootup-time",
       "title": "JavaScript execution time",
-      "description": "Consider reducing the time spent parsing, compiling, and executing JS. You may find delivering smaller JS payloads helps with this. [Learn more](https://web.dev/bootup-time).",
+      "description": "Consider reducing the time spent parsing, compiling, and executing JS. You may find delivering smaller JS payloads helps with this. [Learn more](https://web.dev/bootup-time/).",
       "score": 0.92,
       "scoreDisplayMode": "numeric",
       "numericValue": 1150.5310000000002,
@@ -859,7 +898,7 @@
     "uses-rel-preload": {
       "id": "uses-rel-preload",
       "title": "Preload key requests",
-      "description": "Consider using `<link rel=preload>` to prioritize fetching resources that are currently requested later in page load. [Learn more](https://web.dev/uses-rel-preload).",
+      "description": "Consider using `<link rel=preload>` to prioritize fetching resources that are currently requested later in page load. [Learn more](https://web.dev/uses-rel-preload/).",
       "score": 1,
       "scoreDisplayMode": "numeric",
       "numericValue": 0,
@@ -875,7 +914,7 @@
     "uses-rel-preconnect": {
       "id": "uses-rel-preconnect",
       "title": "Preconnect to required origins",
-      "description": "Consider adding `preconnect` or `dns-prefetch` resource hints to establish early connections to important third-party origins. [Learn more](https://web.dev/uses-rel-preconnect).",
+      "description": "Consider adding `preconnect` or `dns-prefetch` resource hints to establish early connections to important third-party origins. [Learn more](https://web.dev/uses-rel-preconnect/).",
       "score": 1,
       "scoreDisplayMode": "numeric",
       "numericValue": 0,
@@ -892,7 +931,7 @@
     "font-display": {
       "id": "font-display",
       "title": "All text remains visible during webfont loads",
-      "description": "Leverage the font-display CSS feature to ensure text is user-visible while webfonts are loading. [Learn more](https://web.dev/font-display).",
+      "description": "Leverage the font-display CSS feature to ensure text is user-visible while webfonts are loading. [Learn more](https://web.dev/font-display/).",
       "score": 1,
       "scoreDisplayMode": "binary",
       "warnings": [],
@@ -1380,7 +1419,9 @@
             "estimatedInputLatency": 16,
             "totalBlockingTime": 117,
             "maxPotentialFID": 123,
-            "cumulativeLayoutShift": 0,
+            "cumulativeLayoutShift": 0.42,
+            "observedTimeOrigin": 0,
+            "observedTimeOriginTs": 185603319912,
             "observedNavigationStart": 0,
             "observedNavigationStartTs": 185603319912,
             "observedFirstPaint": 3969,
@@ -1397,6 +1438,7 @@
             "observedLoadTs": 185608244374,
             "observedDomContentLoaded": 4901,
             "observedDomContentLoadedTs": 185608220734,
+            "observedCumulativeLayoutShift": 0.42,
             "observedFirstVisualChange": 3969,
             "observedFirstVisualChangeTs": 185607288912,
             "observedLastVisualChange": 4791,
@@ -1413,7 +1455,7 @@
     "offline-start-url": {
       "id": "offline-start-url",
       "title": "`start_url` does not respond with a 200 when offline",
-      "description": "A service worker enables your web app to be reliable in unpredictable network conditions. [Learn more](https://web.dev/offline-start-url).",
+      "description": "A service worker enables your web app to be reliable in unpredictable network conditions. [Learn more](https://web.dev/offline-start-url/).",
       "score": 0,
       "scoreDisplayMode": "binary",
       "explanation": "No usable web app manifest found on page.",
@@ -1439,7 +1481,7 @@
             "text": "Requests"
           },
           {
-            "key": "size",
+            "key": "transferSize",
             "itemType": "bytes",
             "text": "Transfer Size"
           },
@@ -1459,7 +1501,7 @@
             "resourceType": "script",
             "label": "Script",
             "requestCount": 4,
-            "size": 103675,
+            "transferSize": 103675,
             "countOverBudget": "2 requests",
             "sizeOverBudget": 72955
           },
@@ -1467,7 +1509,7 @@
             "resourceType": "total",
             "label": "Total",
             "requestCount": 16,
-            "size": 160517,
+            "transferSize": 160517,
             "countOverBudget": "6 requests",
             "sizeOverBudget": 58117
           },
@@ -1475,21 +1517,21 @@
             "resourceType": "other",
             "label": "Other",
             "requestCount": 1,
-            "size": 12640,
+            "transferSize": 12640,
             "sizeOverBudget": 7520
           },
           {
             "resourceType": "third-party",
             "label": "Third-party",
             "requestCount": 1,
-            "size": 30174,
+            "transferSize": 30174,
             "sizeOverBudget": 4574
           },
           {
             "resourceType": "stylesheet",
             "label": "Stylesheet",
             "requestCount": 7,
-            "size": 5352,
+            "transferSize": 5352,
             "countOverBudget": "5 requests",
             "sizeOverBudget": 232
           },
@@ -1497,25 +1539,25 @@
             "resourceType": "image",
             "label": "Image",
             "requestCount": 1,
-            "size": 24741
+            "transferSize": 24741
           },
           {
             "resourceType": "media",
             "label": "Media",
             "requestCount": 0,
-            "size": 0
+            "transferSize": 0
           },
           {
             "resourceType": "font",
             "label": "Font",
             "requestCount": 0,
-            "size": 0
+            "transferSize": 0
           },
           {
             "resourceType": "document",
             "label": "Document",
             "requestCount": 3,
-            "size": 14109,
+            "transferSize": 14109,
             "countOverBudget": "2 requests"
           }
         ]
@@ -1583,10 +1625,10 @@
     "resource-summary": {
       "id": "resource-summary",
       "title": "Keep request counts low and transfer sizes small",
-      "description": "To set budgets for the quantity and size of page resources, add a budget.json file. [Learn more](https://developers.google.com/web/tools/lighthouse/audits/budgets).",
+      "description": "To set budgets for the quantity and size of page resources, add a budget.json file. [Learn more](https://web.dev/use-lighthouse-for-performance-budgets/).",
       "score": null,
       "scoreDisplayMode": "informative",
-      "displayValue": "16 requests • 157 KB",
+      "displayValue": "16 requests • 157 KiB",
       "details": {
         "type": "table",
         "headings": [
@@ -1601,7 +1643,7 @@
             "text": "Requests"
           },
           {
-            "key": "size",
+            "key": "transferSize",
             "itemType": "bytes",
             "text": "Transfer Size"
           }
@@ -1611,55 +1653,55 @@
             "resourceType": "total",
             "label": "Total",
             "requestCount": 16,
-            "size": 160517
+            "transferSize": 160517
           },
           {
             "resourceType": "script",
             "label": "Script",
             "requestCount": 4,
-            "size": 103675
+            "transferSize": 103675
           },
           {
             "resourceType": "image",
             "label": "Image",
             "requestCount": 1,
-            "size": 24741
+            "transferSize": 24741
           },
           {
             "resourceType": "document",
             "label": "Document",
             "requestCount": 3,
-            "size": 14109
+            "transferSize": 14109
           },
           {
             "resourceType": "other",
             "label": "Other",
             "requestCount": 1,
-            "size": 12640
+            "transferSize": 12640
           },
           {
             "resourceType": "stylesheet",
             "label": "Stylesheet",
             "requestCount": 7,
-            "size": 5352
+            "transferSize": 5352
           },
           {
             "resourceType": "media",
             "label": "Media",
             "requestCount": 0,
-            "size": 0
+            "transferSize": 0
           },
           {
             "resourceType": "font",
             "label": "Font",
             "requestCount": 0,
-            "size": 0
+            "transferSize": 0
           },
           {
             "resourceType": "third-party",
             "label": "Third-party",
             "requestCount": 1,
-            "size": 30174
+            "transferSize": 30174
           }
         ]
       }
@@ -1677,31 +1719,52 @@
           {
             "key": "entity",
             "itemType": "link",
-            "text": "Third-Party"
+            "text": "Third-Party",
+            "subItemsHeading": {
+              "key": "url",
+              "itemType": "url"
+            }
           },
           {
             "key": "transferSize",
             "granularity": 1,
             "itemType": "bytes",
-            "text": "Transfer Size"
+            "text": "Transfer Size",
+            "subItemsHeading": {
+              "key": "transferSize"
+            }
           },
           {
             "key": "blockingTime",
             "granularity": 1,
             "itemType": "ms",
-            "text": "Main-Thread Blocking Time"
+            "text": "Main-Thread Blocking Time",
+            "subItemsHeading": {
+              "key": "blockingTime"
+            }
           }
         ],
         "items": [
           {
+            "mainThreadTime": 90.36300000000001,
+            "blockingTime": 22.918000000000006,
+            "transferSize": 30174,
             "entity": {
               "type": "link",
               "text": "Google CDN",
               "url": "https://developers.google.com/speed/libraries/"
             },
-            "transferSize": 30174,
-            "mainThreadTime": 90.36300000000001,
-            "blockingTime": 22.918000000000006
+            "subItems": {
+              "type": "subitems",
+              "items": [
+                {
+                  "url": "http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js",
+                  "mainThreadTime": 90.36300000000001,
+                  "blockingTime": 22.918000000000006,
+                  "transferSize": 30174
+                }
+              ]
+            }
           }
         ],
         "summary": {
@@ -1713,7 +1776,7 @@
     "largest-contentful-paint-element": {
       "id": "largest-contentful-paint-element",
       "title": "Largest Contentful Paint element",
-      "description": "This is the element that was identified as the Largest Contentful Paint. [Learn More](https://web.dev/lighthouse-largest-contentful-paint)",
+      "description": "This is the largest contentful element painted within the viewport. [Learn More](https://web.dev/lighthouse-largest-contentful-paint/)",
       "score": null,
       "scoreDisplayMode": "informative",
       "displayValue": "1 element found",
@@ -1739,24 +1802,285 @@
         ]
       }
     },
+    "layout-shift-elements": {
+      "id": "layout-shift-elements",
+      "title": "Avoid large layout shifts",
+      "description": "These DOM elements contribute most to the CLS of the page.",
+      "score": null,
+      "scoreDisplayMode": "informative",
+      "displayValue": "4 elements found",
+      "details": {
+        "type": "table",
+        "headings": [
+          {
+            "key": "node",
+            "itemType": "node",
+            "text": "Element"
+          },
+          {
+            "key": "score",
+            "itemType": "numeric",
+            "granularity": 0.001,
+            "text": "CLS Contribution"
+          }
+        ],
+        "items": [
+          {
+            "node": {
+              "type": "node",
+              "path": "1,HTML,1,BODY,2,DIV,0,DIV,0,DIV,0,ARTICLE,1,DIV,3,H5",
+              "selector": "div.blog-index > article > div.entry-content > h5",
+              "nodeLabel": "Debugging Node.js with Chrome DevTools",
+              "snippet": "<h5>"
+            }
+          },
+          {
+            "node": {
+              "type": "node",
+              "path": "1,HTML,1,BODY,2,DIV,0,DIV,0,DIV,0,ARTICLE,1,DIV,4,P",
+              "selector": "div.blog-index > article > div.entry-content > p",
+              "nodeLabel": "The canonical guide to using the Chrome DevTools UI for debugging Node.js. It d…",
+              "snippet": "<p>"
+            }
+          },
+          {
+            "node": {
+              "type": "node",
+              "path": "1,HTML,1,BODY,2,DIV,0,DIV,0,DIV,0,ARTICLE,1,DIV,5,HR",
+              "selector": "div.blog-index > article > div.entry-content > hr",
+              "nodeLabel": "hr",
+              "snippet": "<hr>"
+            }
+          },
+          {
+            "node": {
+              "type": "node",
+              "path": "1,HTML,1,BODY,2,DIV,0,DIV,0,DIV,0,ARTICLE,1,DIV,6,P",
+              "selector": "div.blog-index > article > div.entry-content > p",
+              "nodeLabel": "Aside from that, I’ve been busy working on Lighthouse, performance metrics, too…",
+              "snippet": "<p>"
+            }
+          }
+        ]
+      }
+    },
+    "long-tasks": {
+      "id": "long-tasks",
+      "title": "Avoid long main-thread tasks",
+      "description": "Lists the longest tasks on the main thread, useful for identifying worst contributors to input delay. [Learn more](https://web.dev/long-tasks-devtools/)",
+      "score": null,
+      "scoreDisplayMode": "informative",
+      "displayValue": "4 long tasks found",
+      "details": {
+        "type": "table",
+        "headings": [
+          {
+            "key": "url",
+            "itemType": "url",
+            "text": "URL"
+          },
+          {
+            "key": "startTime",
+            "itemType": "ms",
+            "granularity": 1,
+            "text": "Start Time"
+          },
+          {
+            "key": "duration",
+            "itemType": "ms",
+            "granularity": 1,
+            "text": "Duration"
+          }
+        ],
+        "items": [
+          {
+            "url": "http://localhost:10200/dobetterweb/dbw_tester.js",
+            "duration": 983.081,
+            "startTime": 2854.095
+          },
+          {
+            "url": "http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js",
+            "duration": 127.282,
+            "startTime": 4808.602
+          },
+          {
+            "url": "Unattributable",
+            "duration": 123.752,
+            "startTime": 3839.839
+          },
+          {
+            "url": "http://localhost:10200/zone.js",
+            "duration": 96.198,
+            "startTime": 3996.134
+          }
+        ]
+      }
+    },
+    "no-unload-listeners": {
+      "id": "no-unload-listeners",
+      "title": "Registers an `unload` listener",
+      "description": "The `unload` event does not fire reliably and listening for it can prevent browser optimizations like the Back-Forward Cache. Consider using the `pagehide` or `visibilitychange` events instead. [Learn More](https://developers.google.com/web/updates/2018/07/page-lifecycle-api#the-unload-event)",
+      "score": 0,
+      "scoreDisplayMode": "binary",
+      "details": {
+        "type": "table",
+        "headings": [
+          {
+            "key": "source",
+            "itemType": "source-location",
+            "text": "URL"
+          }
+        ],
+        "items": [
+          {
+            "source": {
+              "type": "source-location",
+              "url": "http://localhost:58599/dobetterweb/dbw_tester.html",
+              "urlProvider": "network",
+              "line": 386,
+              "column": 36
+            }
+          }
+        ]
+      }
+    },
+    "non-composited-animations": {
+      "id": "non-composited-animations",
+      "title": "Avoid non-composited animations",
+      "description": "Animations which are not composited can be janky and increase CLS. [Learn more](https://web.dev/non-composited-animations)",
+      "score": null,
+      "scoreDisplayMode": "informative",
+      "displayValue": "1 animated element found",
+      "details": {
+        "type": "table",
+        "headings": [
+          {
+            "key": "node",
+            "itemType": "node",
+            "subItemsHeading": {
+              "key": "failureReason",
+              "itemType": "text"
+            },
+            "text": "Element"
+          },
+          {
+            "key": null,
+            "itemType": "text",
+            "subItemsHeading": {
+              "key": "animation",
+              "itemType": "text"
+            },
+            "text": "Name"
+          }
+        ],
+        "items": [
+          {
+            "node": {
+              "type": "node",
+              "path": "1,HTML,1,BODY,0,DIV",
+              "selector": "body > div#animated-boi",
+              "nodeLabel": "div",
+              "snippet": "<div id=\"animated-boi\">"
+            },
+            "subItems": {
+              "type": "subitems",
+              "items": [
+                {
+                  "failureReason": "Unsupported CSS Property: width"
+                },
+                {
+                  "failureReason": "Unsupported CSS Properties: height, left",
+                  "animation": "alpha"
+                },
+                {
+                  "failureReason": "Unsupported CSS Property: background-color",
+                  "animation": "beta"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "unsized-images": {
+      "id": "unsized-images",
+      "title": "Image elements do not have explicit `width` and `height`",
+      "description": "Set an explicit width and height on image elements to reduce layout shifts and improve CLS. [Learn more](https://web.dev/optimize-cls/#images-without-dimensions)",
+      "score": 0,
+      "scoreDisplayMode": "binary",
+      "details": {
+        "type": "table",
+        "headings": [
+          {
+            "key": "url",
+            "itemType": "thumbnail",
+            "text": ""
+          },
+          {
+            "key": "url",
+            "itemType": "url",
+            "text": "URL"
+          },
+          {
+            "key": "node",
+            "itemType": "node",
+            "text": "Failing Elements"
+          }
+        ],
+        "items": [
+          {
+            "url": "http://localhost:10200/dobetterweb/lighthouse-480x318.jpg",
+            "node": {
+              "type": "node"
+            }
+          }
+        ]
+      }
+    },
+    "large-javascript-libraries": {
+      "id": "large-javascript-libraries",
+      "title": "Avoids large JavaScript libraries with smaller alternatives",
+      "description": "Large JavaScript libraries can lead to poor performance. Prefer smaller, functionally equivalent libraries to reduce your bundle size. [Learn more](https://developers.google.com/web/fundamentals/performance/webpack/decrease-frontend-size#optimize_dependencies).",
+      "score": 1,
+      "scoreDisplayMode": "binary",
+      "displayValue": "0 large libraries found",
+      "details": {
+        "type": "table",
+        "headings": [],
+        "items": [],
+        "summary": {}
+      }
+    },
+    "valid-source-maps": {
+      "id": "valid-source-maps",
+      "title": "Page has valid source maps",
+      "description": "Source maps translate minified code to the original source code. This helps developers debug in production. In addition, Lighthouse is able to provide further insights. Consider deploying source maps to take advantage of these benefits. [Learn more](https://developers.google.com/web/tools/chrome-devtools/javascript/source-maps).",
+      "score": 1,
+      "scoreDisplayMode": "binary",
+      "details": {
+        "type": "table",
+        "headings": [],
+        "items": []
+      }
+    },
     "pwa-cross-browser": {
       "id": "pwa-cross-browser",
       "title": "Site works cross-browser",
-      "description": "To reach the most number of users, sites should work across every major browser. [Learn more](https://web.dev/pwa-cross-browser).",
+      "description": "To reach the most number of users, sites should work across every major browser. [Learn more](https://web.dev/pwa-cross-browser/).",
       "score": null,
       "scoreDisplayMode": "manual"
     },
     "pwa-page-transitions": {
       "id": "pwa-page-transitions",
       "title": "Page transitions don't feel like they block on the network",
-      "description": "Transitions should feel snappy as you tap around, even on a slow network. This experience is key to a user's perception of performance. [Learn more](https://web.dev/pwa-page-transitions).",
+      "description": "Transitions should feel snappy as you tap around, even on a slow network. This experience is key to a user's perception of performance. [Learn more](https://web.dev/pwa-page-transitions/).",
       "score": null,
       "scoreDisplayMode": "manual"
     },
     "pwa-each-page-has-url": {
       "id": "pwa-each-page-has-url",
       "title": "Each page has a URL",
-      "description": "Ensure individual pages are deep linkable via URL and that URLs are unique for the purpose of shareability on social media. [Learn more](https://web.dev/pwa-each-page-has-url).",
+      "description": "Ensure individual pages are deep linkable via URL and that URLs are unique for the purpose of shareability on social media. [Learn more](https://web.dev/pwa-each-page-has-url/).",
       "score": null,
       "scoreDisplayMode": "manual"
     },
@@ -1909,7 +2233,15 @@
               "type": "node",
               "selector": "h2",
               "path": "3,HTML,1,BODY,5,DIV,0,H2",
-              "snippet": "<h2>Do better web tester page</h2>",
+              "snippet": "<h2>",
+              "boundingRect": {
+                "width": 396,
+                "height": 28,
+                "top": 335,
+                "right": 404,
+                "bottom": 363,
+                "left": 8
+              },
               "explanation": "Fix any of the following:\n  Element has insufficient color contrast of 1.32 (foreground color: #ffc0cb, background color: #eeeeee, font size: 18.0pt, font weight: bold). Expected contrast ratio of 3:1",
               "nodeLabel": "Do better web tester page"
             }
@@ -1919,7 +2251,15 @@
               "type": "node",
               "selector": "span",
               "path": "3,HTML,1,BODY,5,DIV,1,SPAN",
-              "snippet": "<span>Hi there!</span>",
+              "snippet": "<span>",
+              "boundingRect": {
+                "width": 57,
+                "height": 18,
+                "top": 383,
+                "right": 65,
+                "bottom": 401,
+                "left": 8
+              },
               "explanation": "Fix any of the following:\n  Element has insufficient color contrast of 1.32 (foreground color: #ffc0cb, background color: #eeeeee, font size: 12.0pt, font weight: normal). Expected contrast ratio of 4.5:1",
               "nodeLabel": "Hi there!"
             }
@@ -2034,6 +2374,14 @@
               "selector": "html",
               "path": "3,HTML",
               "snippet": "<html manifest=\"clock.appcache\">",
+              "boundingRect": {
+                "width": 412,
+                "height": 1442,
+                "top": 0,
+                "right": 412,
+                "bottom": 1442,
+                "left": 0
+              },
               "explanation": "Fix any of the following:\n  The <html> element does not have a lang attribute",
               "nodeLabel": "html"
             }
@@ -2079,6 +2427,14 @@
               "selector": "img[height=\"\\35 7\"]",
               "path": "3,HTML,1,BODY,10,IMG",
               "snippet": "<img src=\"lighthouse-480x318.jpg\" width=\"480\" height=\"57\">",
+              "boundingRect": {
+                "width": 480,
+                "height": 57,
+                "top": 419,
+                "right": 488,
+                "bottom": 476,
+                "left": 8
+              },
               "explanation": "Fix any of the following:\n  Element does not have an alt attribute\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute or the title attribute is empty\n  Element's default semantics were not overridden with role=\"presentation\"\n  Element's default semantics were not overridden with role=\"none\"",
               "nodeLabel": "img"
             }
@@ -2089,6 +2445,14 @@
               "selector": "img[height=\"\\33 18\"]",
               "path": "3,HTML,1,BODY,12,IMG",
               "snippet": "<img src=\"lighthouse-480x318.jpg\" width=\"480\" height=\"318\">",
+              "boundingRect": {
+                "width": 480,
+                "height": 318,
+                "top": 480,
+                "right": 488,
+                "bottom": 798,
+                "left": 8
+              },
               "explanation": "Fix any of the following:\n  Element does not have an alt attribute\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute or the title attribute is empty\n  Element's default semantics were not overridden with role=\"presentation\"\n  Element's default semantics were not overridden with role=\"none\"",
               "nodeLabel": "img"
             }
@@ -2099,6 +2463,14 @@
               "selector": "img[src$=\"lighthouse-rotating\\.gif\"]",
               "path": "3,HTML,1,BODY,14,IMG",
               "snippet": "<img src=\"lighthouse-rotating.gif\" width=\"811\" height=\"462\">",
+              "boundingRect": {
+                "width": 811,
+                "height": 462,
+                "top": 802,
+                "right": 819,
+                "bottom": 1264,
+                "left": 8
+              },
               "explanation": "Fix any of the following:\n  Element does not have an alt attribute\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute or the title attribute is empty\n  Element's default semantics were not overridden with role=\"presentation\"\n  Element's default semantics were not overridden with role=\"none\"",
               "nodeLabel": "img"
             }
@@ -2108,7 +2480,15 @@
               "type": "node",
               "selector": "img:nth-child(30)",
               "path": "3,HTML,1,BODY,53,IMG",
-              "snippet": "<img src=\"blob:http://localhost:62824/289254fd-ef1d-4c1a-96a8-ba291caa2140\">",
+              "snippet": "<img src=\"blob:http://localhost:54759/41e77cc6-8eb2-49d5-a819-7edf852531be\">",
+              "boundingRect": {
+                "width": 16,
+                "height": 16,
+                "top": 1413,
+                "right": 294,
+                "bottom": 1429,
+                "left": 278
+              },
               "explanation": "Fix any of the following:\n  Element does not have an alt attribute\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute or the title attribute is empty\n  Element's default semantics were not overridden with role=\"presentation\"\n  Element's default semantics were not overridden with role=\"none\"",
               "nodeLabel": "img"
             }
@@ -2156,6 +2536,14 @@
               "selector": "input[onpaste=\"event\\.preventDefault\\(\\)\\;\"]",
               "path": "3,HTML,1,BODY,48,INPUT",
               "snippet": "<input type=\"password\" onpaste=\"event.preventDefault();\">",
+              "boundingRect": {
+                "width": 131,
+                "height": 19,
+                "top": 1394,
+                "right": 323,
+                "bottom": 1413,
+                "left": 192
+              },
               "explanation": "Fix any of the following:\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Form element does not have an implicit (wrapped) <label>\n  Form element does not have an explicit <label>\n  Element has no title attribute or the title attribute is empty",
               "nodeLabel": "input"
             }
@@ -2166,6 +2554,14 @@
               "selector": "input:nth-child(28)",
               "path": "3,HTML,1,BODY,50,INPUT",
               "snippet": "<input type=\"password\">",
+              "boundingRect": {
+                "width": 131,
+                "height": 19,
+                "top": 1415.8125,
+                "right": 139,
+                "bottom": 1434.8125,
+                "left": 8
+              },
               "explanation": "Fix any of the following:\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Form element does not have an implicit (wrapped) <label>\n  Form element does not have an explicit <label>\n  Element has no title attribute or the title attribute is empty",
               "nodeLabel": "input"
             }
@@ -2176,6 +2572,14 @@
               "selector": "input[onpaste=\"return\\ false\\;\"]",
               "path": "3,HTML,1,BODY,52,INPUT",
               "snippet": "<input type=\"password\" onpaste=\"return false;\">",
+              "boundingRect": {
+                "width": 131,
+                "height": 19,
+                "top": 1415,
+                "right": 274,
+                "bottom": 1434,
+                "left": 143
+              },
               "explanation": "Fix any of the following:\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Form element does not have an implicit (wrapped) <label>\n  Form element does not have an explicit <label>\n  Element has no title attribute or the title attribute is empty",
               "nodeLabel": "input"
             }
@@ -2223,7 +2627,7 @@
               "type": "node",
               "selector": "a[href=\"javascript\\:void\\(0\\)\"]",
               "path": "3,HTML,1,BODY,44,A",
-              "snippet": "<a href=\"javascript:void(0)\" target=\"_blank\"></a>",
+              "snippet": "<a href=\"javascript:void(0)\" target=\"_blank\">",
               "explanation": "Fix all of the following:\n  Element is in tab order and does not have accessible text\n\nFix any of the following:\n  Element does not have text that is visible to screen readers\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element's default semantics were not overridden with role=\"presentation\"\n  Element's default semantics were not overridden with role=\"none\"",
               "nodeLabel": "a"
             }
@@ -2233,7 +2637,7 @@
               "type": "node",
               "selector": "a[href$=\"mailto\\:inbox\\@email\\.com\"]",
               "path": "3,HTML,1,BODY,46,A",
-              "snippet": "<a href=\"mailto:inbox@email.com\" target=\"_blank\"></a>",
+              "snippet": "<a href=\"mailto:inbox@email.com\" target=\"_blank\">",
               "explanation": "Fix all of the following:\n  Element is in tab order and does not have accessible text\n\nFix any of the following:\n  Element does not have text that is visible to screen readers\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element's default semantics were not overridden with role=\"presentation\"\n  Element's default semantics were not overridden with role=\"none\"",
               "nodeLabel": "a"
             }
@@ -2307,7 +2711,15 @@
               "type": "node",
               "selector": "#\\35 934a",
               "path": "3,HTML,1,BODY,2,OBJECT",
-              "snippet": "<object id=\"5934a\"></object>",
+              "snippet": "<object id=\"5934a\">",
+              "boundingRect": {
+                "width": 300,
+                "height": 150,
+                "top": 8,
+                "right": 308,
+                "bottom": 158,
+                "left": 8
+              },
               "explanation": "Fix any of the following:\n  Element does not have text that is visible to screen readers\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute or the title attribute is empty\n  Element's default semantics were not overridden with role=\"presentation\"\n  Element's default semantics were not overridden with role=\"none\"",
               "nodeLabel": "object"
             }
@@ -2317,7 +2729,15 @@
               "type": "node",
               "selector": "#\\35 934b",
               "path": "3,HTML,1,BODY,3,OBJECT",
-              "snippet": "<object id=\"5934b\"></object>",
+              "snippet": "<object id=\"5934b\">",
+              "boundingRect": {
+                "width": 300,
+                "height": 150,
+                "top": 162,
+                "right": 308,
+                "bottom": 312,
+                "left": 8
+              },
               "explanation": "Fix any of the following:\n  Element does not have text that is visible to screen readers\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute or the title attribute is empty\n  Element's default semantics were not overridden with role=\"presentation\"\n  Element's default semantics were not overridden with role=\"none\"",
               "nodeLabel": "object"
             }
@@ -2451,7 +2871,7 @@
     "uses-long-cache-ttl": {
       "id": "uses-long-cache-ttl",
       "title": "Serve static assets with an efficient cache policy",
-      "description": "A long cache lifetime can speed up repeat visits to your page. [Learn more](https://web.dev/uses-long-cache-ttl).",
+      "description": "A long cache lifetime can speed up repeat visits to your page. [Learn more](https://web.dev/uses-long-cache-ttl/).",
       "score": 0.58,
       "scoreDisplayMode": "numeric",
       "numericValue": 103455,
@@ -2559,12 +2979,12 @@
     "total-byte-weight": {
       "id": "total-byte-weight",
       "title": "Avoids enormous network payloads",
-      "description": "Large network payloads cost users real money and are highly correlated with long load times. [Learn more](https://web.dev/total-byte-weight).",
+      "description": "Large network payloads cost users real money and are highly correlated with long load times. [Learn more](https://web.dev/total-byte-weight/).",
       "score": 1,
       "scoreDisplayMode": "numeric",
       "numericValue": 160738,
       "numericUnit": "byte",
-      "displayValue": "Total size was 157 KB",
+      "displayValue": "Total size was 157 KiB",
       "details": {
         "type": "table",
         "headings": [
@@ -2626,7 +3046,7 @@
     "offscreen-images": {
       "id": "offscreen-images",
       "title": "Defer offscreen images",
-      "description": "Consider lazy-loading offscreen and hidden images after all critical resources have finished loading to lower time to interactive. [Learn more](https://web.dev/offscreen-images).",
+      "description": "Consider lazy-loading offscreen and hidden images after all critical resources have finished loading to lower time to interactive. [Learn more](https://web.dev/offscreen-images/).",
       "score": 1,
       "scoreDisplayMode": "numeric",
       "numericValue": 0,
@@ -2644,7 +3064,7 @@
     "render-blocking-resources": {
       "id": "render-blocking-resources",
       "title": "Eliminate render-blocking resources",
-      "description": "Resources are blocking the first paint of your page. Consider delivering critical JS/CSS inline and deferring all non-critical JS/styles. [Learn more](https://web.dev/render-blocking-resources).",
+      "description": "Resources are blocking the first paint of your page. Consider delivering critical JS/CSS inline and deferring all non-critical JS/styles. [Learn more](https://web.dev/render-blocking-resources/).",
       "score": 0.46,
       "scoreDisplayMode": "numeric",
       "numericValue": 1129,
@@ -2702,7 +3122,7 @@
     "unminified-css": {
       "id": "unminified-css",
       "title": "Minify CSS",
-      "description": "Minifying CSS files can reduce network payload sizes. [Learn more](https://web.dev/unminified-css).",
+      "description": "Minifying CSS files can reduce network payload sizes. [Learn more](https://web.dev/unminified-css/).",
       "score": 1,
       "scoreDisplayMode": "numeric",
       "numericValue": 0,
@@ -2719,12 +3139,12 @@
     "unminified-javascript": {
       "id": "unminified-javascript",
       "title": "Minify JavaScript",
-      "description": "Minifying JavaScript files can reduce payload sizes and script parse time. [Learn more](https://web.dev/unminified-javascript).",
+      "description": "Minifying JavaScript files can reduce payload sizes and script parse time. [Learn more](https://web.dev/unminified-javascript/).",
       "score": 0.88,
       "scoreDisplayMode": "numeric",
       "numericValue": 150,
       "numericUnit": "millisecond",
-      "displayValue": "Potential savings of 30 KB",
+      "displayValue": "Potential savings of 30 KiB",
       "warnings": [],
       "details": {
         "type": "opportunity",
@@ -2760,7 +3180,7 @@
     "unused-css-rules": {
       "id": "unused-css-rules",
       "title": "Remove unused CSS",
-      "description": "Remove dead rules from stylesheets and defer the loading of CSS not used for above-the-fold content to reduce unnecessary bytes consumed by network activity. [Learn more](https://web.dev/unused-css-rules).",
+      "description": "Remove dead rules from stylesheets and defer the loading of CSS not used for above-the-fold content to reduce unnecessary bytes consumed by network activity. [Learn more](https://web.dev/unused-css-rules/).",
       "score": 1,
       "scoreDisplayMode": "numeric",
       "numericValue": 0,
@@ -2777,7 +3197,7 @@
     "unused-javascript": {
       "id": "unused-javascript",
       "title": "Remove unused JavaScript",
-      "description": "Remove unused JavaScript to reduce bytes consumed by network activity. [Learn more](https://web.dev/remove-unused-code/).",
+      "description": "Remove unused JavaScript to reduce bytes consumed by network activity. [Learn more](https://web.dev/unused-javascript/).",
       "score": 1,
       "scoreDisplayMode": "numeric",
       "numericValue": 0,
@@ -2794,12 +3214,12 @@
     "uses-webp-images": {
       "id": "uses-webp-images",
       "title": "Serve images in next-gen formats",
-      "description": "Image formats like JPEG 2000, JPEG XR, and WebP often provide better compression than PNG or JPEG, which means faster downloads and less data consumption. [Learn more](https://web.dev/uses-webp-images).",
+      "description": "Image formats like JPEG 2000, JPEG XR, and WebP often provide better compression than PNG or JPEG, which means faster downloads and less data consumption. [Learn more](https://web.dev/uses-webp-images/).",
       "score": 1,
       "scoreDisplayMode": "numeric",
       "numericValue": 0,
       "numericUnit": "millisecond",
-      "displayValue": "Potential savings of 9 KB",
+      "displayValue": "Potential savings of 9 KiB",
       "warnings": [],
       "details": {
         "type": "opportunity",
@@ -2841,7 +3261,7 @@
     "uses-optimized-images": {
       "id": "uses-optimized-images",
       "title": "Efficiently encode images",
-      "description": "Optimized images load faster and consume less cellular data. [Learn more](https://web.dev/uses-optimized-images).",
+      "description": "Optimized images load faster and consume less cellular data. [Learn more](https://web.dev/uses-optimized-images/).",
       "score": 1,
       "scoreDisplayMode": "numeric",
       "numericValue": 0,
@@ -2859,12 +3279,12 @@
     "uses-text-compression": {
       "id": "uses-text-compression",
       "title": "Enable text compression",
-      "description": "Text-based resources should be served with compression (gzip, deflate or brotli) to minimize total network bytes. [Learn more](https://web.dev/uses-text-compression).",
+      "description": "Text-based resources should be served with compression (gzip, deflate or brotli) to minimize total network bytes. [Learn more](https://web.dev/uses-text-compression/).",
       "score": 0.75,
       "scoreDisplayMode": "numeric",
       "numericValue": 300,
       "numericUnit": "millisecond",
-      "displayValue": "Potential savings of 63 KB",
+      "displayValue": "Potential savings of 63 KiB",
       "details": {
         "type": "opportunity",
         "headings": [
@@ -2903,7 +3323,7 @@
     "uses-responsive-images": {
       "id": "uses-responsive-images",
       "title": "Properly size images",
-      "description": "Serve images that are appropriately-sized to save cellular data and improve load time. [Learn more](https://web.dev/uses-responsive-images).",
+      "description": "Serve images that are appropriately-sized to save cellular data and improve load time. [Learn more](https://web.dev/uses-responsive-images/).",
       "score": 1,
       "scoreDisplayMode": "numeric",
       "numericValue": 0,
@@ -2921,7 +3341,7 @@
     "efficient-animated-content": {
       "id": "efficient-animated-content",
       "title": "Use video formats for animated content",
-      "description": "Large GIFs are inefficient for delivering animated content. Consider using MPEG4/WebM videos for animations and PNG/WebP for static images instead of GIF to save network bytes. [Learn more](https://web.dev/efficient-animated-content)",
+      "description": "Large GIFs are inefficient for delivering animated content. Consider using MPEG4/WebM videos for animations and PNG/WebP for static images instead of GIF to save network bytes. [Learn more](https://web.dev/efficient-animated-content/)",
       "score": 1,
       "scoreDisplayMode": "numeric",
       "numericValue": 0,
@@ -2935,10 +3355,98 @@
         "overallSavingsBytes": 0
       }
     },
+    "duplicated-javascript": {
+      "id": "duplicated-javascript",
+      "title": "Remove duplicate modules in JavaScript bundles",
+      "description": "Remove large, duplicate JavaScript modules from bundles to reduce unnecessary bytes consumed by network activity. ",
+      "score": 1,
+      "scoreDisplayMode": "numeric",
+      "numericValue": 0,
+      "numericUnit": "millisecond",
+      "displayValue": "",
+      "details": {
+        "type": "opportunity",
+        "headings": [],
+        "items": [],
+        "overallSavingsMs": 0,
+        "overallSavingsBytes": 0
+      }
+    },
+    "legacy-javascript": {
+      "id": "legacy-javascript",
+      "title": "Avoid serving legacy JavaScript to modern browsers",
+      "description": "Polyfills and transforms enable legacy browsers to use new JavaScript features. However, many aren't necessary for modern browsers. For your bundled JavaScript, adopt a modern script deployment strategy using module/nomodule feature detection to reduce the amount of code shipped to modern browsers, while retaining support for legacy browsers. [Learn More](https://philipwalton.com/articles/deploying-es2015-code-in-production-today/)",
+      "score": 1,
+      "scoreDisplayMode": "numeric",
+      "numericValue": 0,
+      "numericUnit": "millisecond",
+      "displayValue": "Potential savings of 21 KiB",
+      "details": {
+        "type": "opportunity",
+        "headings": [
+          {
+            "key": "url",
+            "valueType": "url",
+            "subItemsHeading": {
+              "key": "location",
+              "valueType": "source-location"
+            },
+            "label": "URL"
+          },
+          {
+            "key": null,
+            "valueType": "code",
+            "subItemsHeading": {
+              "key": "signal"
+            },
+            "label": ""
+          },
+          {
+            "key": "wastedBytes",
+            "valueType": "bytes",
+            "label": "Potential Savings"
+          }
+        ],
+        "items": [
+          {
+            "url": "http://localhost:10200/zone.js",
+            "wastedBytes": 21205,
+            "subItems": {
+              "type": "subitems",
+              "items": [
+                {
+                  "signal": "Object.defineProperty",
+                  "location": {
+                    "type": "source-location",
+                    "url": "http://localhost:10200/zone.js",
+                    "line": 1290,
+                    "column": 4,
+                    "urlProvider": "network"
+                  }
+                },
+                {
+                  "signal": "Object.defineProperties",
+                  "location": {
+                    "type": "source-location",
+                    "url": "http://localhost:10200/zone.js",
+                    "line": 1300,
+                    "column": 4,
+                    "urlProvider": "network"
+                  }
+                }
+              ]
+            },
+            "totalBytes": 0
+          }
+        ],
+        "overallSavingsMs": 0,
+        "overallSavingsBytes": 21205
+      }
+    },
     "appcache-manifest": {
       "id": "appcache-manifest",
       "title": "Uses Application Cache",
-      "description": "Application Cache is deprecated. [Learn more](https://web.dev/appcache-manifest).",
+      "description": "Application Cache is deprecated. [Learn more](https://web.dev/appcache-manifest/).",
       "score": 0,
       "scoreDisplayMode": "binary",
       "displayValue": "Found \"clock.appcache\""
@@ -2946,21 +3454,21 @@
     "doctype": {
       "id": "doctype",
       "title": "Page has the HTML doctype",
-      "description": "Specifying a doctype prevents the browser from switching to quirks-mode. [Learn more](https://web.dev/doctype).",
+      "description": "Specifying a doctype prevents the browser from switching to quirks-mode. [Learn more](https://web.dev/doctype/).",
       "score": 1,
       "scoreDisplayMode": "binary"
     },
     "charset": {
       "id": "charset",
       "title": "Charset declaration is missing or occurs too late in the HTML",
-      "description": "A character encoding declaration is required. It can be done with a <meta> tag in the first 1024 bytes of the HTML or in the Content-Type HTTP response header. [Learn more](https://www.w3.org/International/questions/qa-html-encoding-declarations).",
+      "description": "A character encoding declaration is required. It can be done with a <meta> tag in the first 1024 bytes of the HTML or in the Content-Type HTTP response header. [Learn more](https://web.dev/charset/).",
       "score": 0,
       "scoreDisplayMode": "binary"
     },
     "dom-size": {
       "id": "dom-size",
       "title": "Avoids an excessive DOM size",
-      "description": "A large DOM will increase memory usage, cause longer [style calculations](https://developers.google.com/web/fundamentals/performance/rendering/reduce-the-scope-and-complexity-of-style-calculations), and produce costly [layout reflows](https://developers.google.com/speed/articles/reflow). [Learn more](https://web.dev/dom-size).",
+      "description": "A large DOM will increase memory usage, cause longer [style calculations](https://developers.google.com/web/fundamentals/performance/rendering/reduce-the-scope-and-complexity-of-style-calculations), and produce costly [layout reflows](https://developers.google.com/speed/articles/reflow). [Learn more](https://web.dev/dom-size/).",
       "score": 1,
       "scoreDisplayMode": "numeric",
       "numericValue": 31,
@@ -3013,11 +3521,11 @@
     "external-anchors-use-rel-noopener": {
       "id": "external-anchors-use-rel-noopener",
       "title": "Links to cross-origin destinations are unsafe",
-      "description": "Add `rel=\"noopener\"` or `rel=\"noreferrer\"` to any external links to improve performance and prevent security vulnerabilities. [Learn more](https://web.dev/external-anchors-use-rel-noopener).",
+      "description": "Add `rel=\"noopener\"` or `rel=\"noreferrer\"` to any external links to improve performance and prevent security vulnerabilities. [Learn more](https://web.dev/external-anchors-use-rel-noopener/).",
       "score": 0,
       "scoreDisplayMode": "binary",
       "warnings": [
-        "Unable to determine the destination for anchor (<a target=\"blank\">Hello</a>). If not used as a hyperlink, consider removing target=_blank."
+        "Unable to determine the destination for anchor (<a target=\"_blank\">). If not used as a hyperlink, consider removing target=_blank."
       ],
       "details": {
         "type": "table",
@@ -3032,41 +3540,54 @@
           {
             "node": {
               "type": "node",
-              "path": "",
-              "selector": "",
-              "nodeLabel": "",
-              "snippet": "<a href=\"https://www.google.com/\" target=\"blank\">Hello</a>"
+              "path": "3,HTML,1,BODY,36,A",
+              "selector": "body > a",
+              "nodeLabel": "external link",
+              "snippet": "<a href=\"https://www.google.com/\" target=\"_blank\">"
             },
             "href": "https://www.google.com/",
             "target": "_blank",
             "rel": "",
-            "outerHTML": "<a href=\"https://www.google.com/\" target=\"blank\">Hello</a>"
+            "outerHTML": "<a href=\"https://www.google.com/\" target=\"_blank\">"
           },
           {
             "node": {
               "type": "node",
-              "path": "",
-              "selector": "",
-              "nodeLabel": "",
-              "snippet": "<a target=\"blank\">Hello</a>"
+              "path": "3,HTML,1,BODY,38,A",
+              "selector": "body > a",
+              "nodeLabel": "external link",
+              "snippet": "<a target=\"_blank\">"
             },
             "href": "Unknown",
             "target": "_blank",
             "rel": "",
-            "outerHTML": "<a target=\"blank\">Hello</a>"
+            "outerHTML": "<a target=\"_blank\">"
           },
           {
             "node": {
               "type": "node",
-              "path": "",
-              "selector": "",
-              "nodeLabel": "",
-              "snippet": "<a rel=\"nofollow\" href=\"https://www.google.com/\" target=\"blank\">Hello</a>"
+              "path": "3,HTML,1,BODY,40,A",
+              "selector": "body > a",
+              "nodeLabel": "external link",
+              "snippet": "<a href=\"https://www.google.com/\" target=\"_blank\" rel=\"nofollow\">"
             },
             "href": "https://www.google.com/",
             "target": "_blank",
             "rel": "nofollow",
-            "outerHTML": "<a rel=\"nofollow\" href=\"https://www.google.com/\" target=\"blank\">Hello</a>"
+            "outerHTML": "<a href=\"https://www.google.com/\" target=\"_blank\" rel=\"nofollow\">"
+          },
+          {
+            "node": {
+              "type": "node",
+              "path": "3,HTML,1,BODY,52,A",
+              "selector": "body > a",
+              "nodeLabel": "internal link is ok",
+              "snippet": "<a href=\"./doesnotexist\" target=\"_blank\">"
+            },
+            "href": "http://localhost:53133/dobetterweb/doesnotexist",
+            "target": "_blank",
+            "rel": "",
+            "outerHTML": "<a href=\"./doesnotexist\" target=\"_blank\">"
           }
         ]
       }
@@ -3074,7 +3595,7 @@
     "geolocation-on-start": {
       "id": "geolocation-on-start",
       "title": "Requests the geolocation permission on page load",
-      "description": "Users are mistrustful of or confused by sites that request their location without context. Consider tying the request to a user action instead. [Learn more](https://web.dev/geolocation-on-start).",
+      "description": "Users are mistrustful of or confused by sites that request their location without context. Consider tying the request to a user action instead. [Learn more](https://web.dev/geolocation-on-start/).",
       "score": 0,
       "scoreDisplayMode": "binary",
       "details": {
@@ -3106,7 +3627,7 @@
     "no-document-write": {
       "id": "no-document-write",
       "title": "Avoid `document.write()`",
-      "description": "For users on slow connections, external scripts dynamically injected via `document.write()` can delay page load by tens of seconds. [Learn more](https://web.dev/no-document-write).",
+      "description": "For users on slow connections, external scripts dynamically injected via `document.write()` can delay page load by tens of seconds. [Learn more](https://web.dev/no-document-write/).",
       "score": 0,
       "scoreDisplayMode": "binary",
       "details": {
@@ -3142,10 +3663,10 @@
     "no-vulnerable-libraries": {
       "id": "no-vulnerable-libraries",
       "title": "Includes front-end JavaScript libraries with known security vulnerabilities",
-      "description": "Some third-party scripts may contain known security vulnerabilities that are easily identified and exploited by attackers. [Learn more](https://web.dev/no-vulnerable-libraries).",
+      "description": "Some third-party scripts may contain known security vulnerabilities that are easily identified and exploited by attackers. [Learn more](https://web.dev/no-vulnerable-libraries/).",
       "score": 0,
       "scoreDisplayMode": "binary",
-      "displayValue": "2 vulnerabilities detected",
+      "displayValue": "4 vulnerabilities detected",
       "details": {
         "type": "table",
         "headings": [
@@ -3168,7 +3689,7 @@
         "items": [
           {
             "highestSeverity": "Medium",
-            "vulnCount": 2,
+            "vulnCount": 4,
             "detectedLib": {
               "text": "jQuery@2.1.1",
               "url": "https://snyk.io/vuln/npm:jquery?lh=2.1.1&utm_source=lighthouse&utm_medium=ref&utm_campaign=audit",
@@ -3182,7 +3703,7 @@
     "js-libraries": {
       "id": "js-libraries",
       "title": "Detected JavaScript libraries",
-      "description": "All front-end JavaScript libraries detected on the page. [Learn more](https://web.dev/js-libraries).",
+      "description": "All front-end JavaScript libraries detected on the page. [Learn more](https://web.dev/js-libraries/).",
       "score": 1,
       "scoreDisplayMode": "binary",
       "details": {
@@ -3230,7 +3751,7 @@
     "notification-on-start": {
       "id": "notification-on-start",
       "title": "Requests the notification permission on page load",
-      "description": "Users are mistrustful of or confused by sites that request to send notifications without context. Consider tying the request to user gestures instead. [Learn more](https://web.dev/notification-on-start).",
+      "description": "Users are mistrustful of or confused by sites that request to send notifications without context. Consider tying the request to user gestures instead. [Learn more](https://web.dev/notification-on-start/).",
       "score": 0,
       "scoreDisplayMode": "binary",
       "details": {
@@ -3258,7 +3779,7 @@
     "password-inputs-can-be-pasted-into": {
       "id": "password-inputs-can-be-pasted-into",
       "title": "Prevents users to paste into password fields",
-      "description": "Preventing password pasting undermines good security policy. [Learn more](https://web.dev/password-inputs-can-be-pasted-into).",
+      "description": "Preventing password pasting undermines good security policy. [Learn more](https://web.dev/password-inputs-can-be-pasted-into/).",
       "score": 0,
       "scoreDisplayMode": "binary",
       "details": {
@@ -3288,23 +3809,25 @@
     },
     "uses-http2": {
       "id": "uses-http2",
-      "title": "Does not use HTTP/2 for all of its resources",
-      "description": "HTTP/2 offers many benefits over HTTP/1.1, including binary headers, multiplexing, and server push. [Learn more](https://web.dev/uses-http2).",
-      "score": 0,
+      "title": "Use HTTP/2",
+      "description": "HTTP/2 offers many benefits over HTTP/1.1, including binary headers, multiplexing, and server push. [Learn more](https://web.dev/uses-http2/).",
+      "score": 0.41,
       "scoreDisplayMode": "binary",
+      "numericValue": 1550,
+      "numericUnit": "millisecond",
       "displayValue": "15 requests not served via HTTP/2",
       "details": {
-        "type": "table",
+        "type": "opportunity",
         "headings": [
           {
             "key": "url",
-            "itemType": "url",
-            "text": "URL"
+            "valueType": "url",
+            "label": "URL"
           },
           {
             "key": "protocol",
-            "itemType": "text",
-            "text": "Protocol"
+            "valueType": "text",
+            "label": "Protocol"
           }
         ],
         "items": [
@@ -3368,13 +3891,14 @@
             "protocol": "http/1.1",
             "url": "http://localhost:10200/favicon.ico"
           }
-        ]
+        ],
+        "overallSavingsMs": 1550
       }
     },
     "uses-passive-event-listeners": {
       "id": "uses-passive-event-listeners",
       "title": "Does not use passive listeners to improve scrolling performance",
-      "description": "Consider marking your touch and wheel event listeners as `passive` to improve your page's scroll performance. [Learn more](https://web.dev/uses-passive-event-listeners).",
+      "description": "Consider marking your touch and wheel event listeners as `passive` to improve your page's scroll performance. [Learn more](https://web.dev/uses-passive-event-listeners/).",
       "score": 0,
       "scoreDisplayMode": "binary",
       "details": {
@@ -3410,21 +3934,21 @@
     "meta-description": {
       "id": "meta-description",
       "title": "Document does not have a meta description",
-      "description": "Meta descriptions may be included in search results to concisely summarize page content. [Learn more](https://web.dev/meta-description).",
+      "description": "Meta descriptions may be included in search results to concisely summarize page content. [Learn more](https://web.dev/meta-description/).",
       "score": 0,
       "scoreDisplayMode": "binary"
     },
     "http-status-code": {
       "id": "http-status-code",
       "title": "Page has successful HTTP status code",
-      "description": "Pages with unsuccessful HTTP status codes may not be indexed properly. [Learn more](https://web.dev/http-status-code).",
+      "description": "Pages with unsuccessful HTTP status codes may not be indexed properly. [Learn more](https://web.dev/http-status-code/).",
       "score": 1,
       "scoreDisplayMode": "binary"
     },
     "font-size": {
       "id": "font-size",
       "title": "Document uses legible font sizes",
-      "description": "Font sizes less than 12px are too small to be legible and require mobile visitors to “pinch to zoom” in order to read. Strive to have >60% of page text ≥12px. [Learn more](https://web.dev/font-size).",
+      "description": "Font sizes less than 12px are too small to be legible and require mobile visitors to “pinch to zoom” in order to read. Strive to have >60% of page text ≥12px. [Learn more](https://web.dev/font-size/).",
       "score": 1,
       "scoreDisplayMode": "binary",
       "displayValue": "100% legible text",
@@ -3468,7 +3992,7 @@
     "link-text": {
       "id": "link-text",
       "title": "Links have descriptive text",
-      "description": "Descriptive link text helps search engines understand your content. [Learn more](https://web.dev/link-text).",
+      "description": "Descriptive link text helps search engines understand your content. [Learn more](https://web.dev/link-text/).",
       "score": 1,
       "scoreDisplayMode": "binary",
       "details": {
@@ -3478,10 +4002,47 @@
         "summary": {}
       }
     },
+    "crawlable-anchors": {
+      "id": "crawlable-anchors",
+      "title": "Links are not crawlable",
+      "description": "Search engines may use `href` attributes on links to crawl websites. Ensure that the `href` attribute of anchor elements links to an appropriate destination, so more pages of the site can be discovered. [Learn More](https://support.google.com/webmasters/answer/9112205)",
+      "score": 0,
+      "scoreDisplayMode": "binary",
+      "details": {
+        "type": "table",
+        "headings": [
+          {
+            "key": "node",
+            "itemType": "node",
+            "text": "Uncrawlable Link"
+          }
+        ],
+        "items": [
+          {
+            "node": {
+              "type": "node",
+              "path": "3,HTML,1,BODY,38,A",
+              "selector": "body > a",
+              "nodeLabel": "external link",
+              "snippet": "<a target=\"_blank\">"
+            }
+          },
+          {
+            "node": {
+              "type": "node",
+              "path": "3,HTML,1,BODY,54,A",
+              "selector": "body > a",
+              "nodeLabel": "a",
+              "snippet": "<a href=\"javascript:void(0)\" target=\"_blank\">"
+            }
+          }
+        ]
+      }
+    },
     "is-crawlable": {
       "id": "is-crawlable",
       "title": "Page isn’t blocked from indexing",
-      "description": "Search engines are unable to include your pages in search results if they don't have permission to crawl them. [Learn more](https://web.dev/is-crawable).",
+      "description": "Search engines are unable to include your pages in search results if they don't have permission to crawl them. [Learn more](https://web.dev/is-crawable/).",
       "score": 1,
       "scoreDisplayMode": "binary",
       "details": {
@@ -3493,14 +4054,14 @@
     "robots-txt": {
       "id": "robots-txt",
       "title": "robots.txt is valid",
-      "description": "If your robots.txt file is malformed, crawlers may not be able to understand how you want your website to be crawled or indexed. [Learn more](https://web.dev/robots-txt).",
+      "description": "If your robots.txt file is malformed, crawlers may not be able to understand how you want your website to be crawled or indexed. [Learn more](https://web.dev/robots-txt/).",
       "score": null,
       "scoreDisplayMode": "notApplicable"
     },
     "tap-targets": {
       "id": "tap-targets",
       "title": "Tap targets are not sized appropriately",
-      "description": "Interactive elements like buttons and links should be large enough (48x48px), and have enough space around them, to be easy enough to tap without overlapping onto other elements. [Learn more](https://web.dev/tap-targets).",
+      "description": "Interactive elements like buttons and links should be large enough (48x48px), and have enough space around them, to be easy enough to tap without overlapping onto other elements. [Learn more](https://web.dev/tap-targets/).",
       "score": 0,
       "scoreDisplayMode": "binary",
       "displayValue": "0% appropriately sized tap targets",
@@ -3530,6 +4091,14 @@
               "snippet": "<button class=\"small-button\">Do something</button>",
               "path": "3,HTML,1,BODY,17,BUTTON",
               "selector": "body > button.small-button",
+              "boundingRect": {
+                "left": 8,
+                "right": 208,
+                "top": 1268.8125,
+                "bottom": 1286.8125,
+                "width": 200,
+                "height": 18
+              },
               "nodeLabel": "Do something"
             },
             "overlappingTarget": {
@@ -3537,6 +4106,14 @@
               "snippet": "<button class=\"small-button\">Do something else</button>",
               "path": "3,HTML,1,BODY,18,BUTTON",
               "selector": "body > button.small-button",
+              "boundingRect": {
+                "left": 8,
+                "right": 208,
+                "top": 1286.8125,
+                "bottom": 1304.8125,
+                "width": 200,
+                "height": 18
+              },
               "nodeLabel": "Do something else"
             },
             "tapTargetScore": 864,
@@ -3552,7 +4129,7 @@
     "hreflang": {
       "id": "hreflang",
       "title": "Document has a valid `hreflang`",
-      "description": "hreflang links tell search engines what version of a page they should list in search results for a given language or region. [Learn more](https://web.dev/hreflang).",
+      "description": "hreflang links tell search engines what version of a page they should list in search results for a given language or region. [Learn more](https://web.dev/hreflang/).",
       "score": 1,
       "scoreDisplayMode": "binary",
       "details": {
@@ -3564,7 +4141,7 @@
     "plugins": {
       "id": "plugins",
       "title": "Document avoids plugins",
-      "description": "Search engines can't index plugin content, and many devices restrict plugins or don't support them. [Learn more](https://web.dev/plugins).",
+      "description": "Search engines can't index plugin content, and many devices restrict plugins or don't support them. [Learn more](https://web.dev/plugins/).",
       "score": 1,
       "scoreDisplayMode": "binary",
       "details": {
@@ -3576,14 +4153,14 @@
     "canonical": {
       "id": "canonical",
       "title": "Document has a valid `rel=canonical`",
-      "description": "Canonical links suggest which URL to show in search results. [Learn more](https://web.dev/canonical).",
+      "description": "Canonical links suggest which URL to show in search results. [Learn more](https://web.dev/canonical/).",
       "score": null,
       "scoreDisplayMode": "notApplicable"
     },
     "structured-data": {
       "id": "structured-data",
       "title": "Structured data is valid",
-      "description": "Run the [Structured Data Testing Tool](https://search.google.com/structured-data/testing-tool/) and the [Structured Data Linter](http://linter.structured-data.org/) to validate structured data. [Learn more](https://web.dev/structured-data).",
+      "description": "Run the [Structured Data Testing Tool](https://search.google.com/structured-data/testing-tool/) and the [Structured Data Linter](http://linter.structured-data.org/) to validate structured data. [Learn more](https://web.dev/structured-data/).",
       "score": null,
       "scoreDisplayMode": "manual"
     }
@@ -3827,7 +4404,7 @@
           "group": "load-opportunities"
         },
         {
-          "id": "time-to-first-byte",
+          "id": "server-response-time",
           "weight": 0,
           "group": "load-opportunities"
         },
@@ -3842,7 +4419,22 @@
           "group": "load-opportunities"
         },
         {
+          "id": "uses-http2",
+          "weight": 0,
+          "group": "load-opportunities"
+        },
+        {
           "id": "efficient-animated-content",
+          "weight": 0,
+          "group": "load-opportunities"
+        },
+        {
+          "id": "duplicated-javascript",
+          "weight": 0,
+          "group": "load-opportunities"
+        },
+        {
+          "id": "legacy-javascript",
           "weight": 0,
           "group": "load-opportunities"
         },
@@ -3912,7 +4504,7 @@
           "group": "diagnostics"
         },
         {
-          "id": "uses-http2",
+          "id": "layout-shift-elements",
           "weight": 0,
           "group": "diagnostics"
         },
@@ -3923,6 +4515,26 @@
         },
         {
           "id": "no-document-write",
+          "weight": 0,
+          "group": "diagnostics"
+        },
+        {
+          "id": "long-tasks",
+          "weight": 0,
+          "group": "diagnostics"
+        },
+        {
+          "id": "non-composited-animations",
+          "weight": 0,
+          "group": "diagnostics"
+        },
+        {
+          "id": "unsized-images",
+          "weight": 0,
+          "group": "diagnostics"
+        },
+        {
+          "id": "large-javascript-libraries",
           "weight": 0,
           "group": "diagnostics"
         },
@@ -4260,6 +4872,11 @@
           "group": "best-practices-ux"
         },
         {
+          "id": "preload-fonts",
+          "weight": 1,
+          "group": "best-practices-ux"
+        },
+        {
           "id": "doctype",
           "weight": 1,
           "group": "best-practices-browser-compat"
@@ -4268,6 +4885,11 @@
           "id": "charset",
           "weight": 1,
           "group": "best-practices-browser-compat"
+        },
+        {
+          "id": "no-unload-listeners",
+          "weight": 1,
+          "group": "best-practices-general"
         },
         {
           "id": "appcache-manifest",
@@ -4288,10 +4910,15 @@
           "id": "errors-in-console",
           "weight": 1,
           "group": "best-practices-general"
+        },
+        {
+          "id": "valid-source-maps",
+          "weight": 0,
+          "group": "best-practices-general"
         }
       ],
       "id": "best-practices",
-      "score": 0.08
+      "score": 0.07
     },
     "seo": {
       "title": "SEO",
@@ -4322,6 +4949,11 @@
           "id": "link-text",
           "weight": 1,
           "group": "seo-content"
+        },
+        {
+          "id": "crawlable-anchors",
+          "weight": 1,
+          "group": "seo-crawl"
         },
         {
           "id": "is-crawlable",
@@ -4369,7 +5001,7 @@
         }
       ],
       "id": "seo",
-      "score": 0.73
+      "score": 0.67
     },
     "pwa": {
       "title": "Progressive Web App",
@@ -4469,7 +5101,7 @@
     },
     "load-opportunities": {
       "title": "Opportunities",
-      "description": "These suggestions can help your page load faster. They don't [directly affect](https://github.com/GoogleChrome/lighthouse/blob/d2ec9ffbb21de9ad1a0f86ed24575eda32c796f0/docs/scoring.md#how-are-the-scores-weighted) the Performance score."
+      "description": "These suggestions can help your page load faster. They don't [directly affect](https://web.dev/performance-scoring/) the Performance score."
     },
     "budgets": {
       "title": "Budgets",
@@ -4477,7 +5109,7 @@
     },
     "diagnostics": {
       "title": "Diagnostics",
-      "description": "More information about the performance of your application. These numbers don't [directly affect](https://github.com/GoogleChrome/lighthouse/blob/d2ec9ffbb21de9ad1a0f86ed24575eda32c796f0/docs/scoring.md#how-are-the-scores-weighted) the Performance score."
+      "description": "More information about the performance of your application. These numbers don't [directly affect](https://web.dev/performance-scoring/) the Performance score."
     },
     "pwa-fast-reliable": {
       "title": "Fast and reliable"
@@ -4518,7 +5150,7 @@
     },
     "a11y-tables-lists": {
       "title": "Tables and lists",
-      "description": "These are opportunities to to improve the experience of reading tabular or list data using assistive technology, like a screen reader."
+      "description": "These are opportunities to improve the experience of reading tabular or list data using assistive technology, like a screen reader."
     },
     "seo-mobile": {
       "title": "Mobile Friendly",
@@ -4777,7 +5409,7 @@
       },
       {
         "startTime": 0,
-        "name": "lh:audit:time-to-first-byte",
+        "name": "lh:audit:server-response-time",
         "duration": 100,
         "entryType": "measure"
       },
@@ -4939,6 +5571,12 @@
       },
       {
         "startTime": 0,
+        "name": "lh:audit:preload-fonts",
+        "duration": 100,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 0,
         "name": "lh:audit:deprecations",
         "duration": 100,
         "entryType": "measure"
@@ -5066,6 +5704,48 @@
       {
         "startTime": 0,
         "name": "lh:audit:largest-contentful-paint-element",
+        "duration": 100,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 0,
+        "name": "lh:audit:layout-shift-elements",
+        "duration": 100,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 0,
+        "name": "lh:audit:long-tasks",
+        "duration": 100,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 0,
+        "name": "lh:audit:no-unload-listeners",
+        "duration": 100,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 0,
+        "name": "lh:audit:non-composited-animations",
+        "duration": 100,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 0,
+        "name": "lh:audit:unsized-images",
+        "duration": 100,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 0,
+        "name": "lh:audit:large-javascript-libraries",
+        "duration": 100,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 0,
+        "name": "lh:audit:valid-source-maps",
         "duration": 100,
         "entryType": "measure"
       },
@@ -5497,6 +6177,30 @@
       },
       {
         "startTime": 0,
+        "name": "lh:audit:duplicated-javascript",
+        "duration": 100,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 0,
+        "name": "lh:computed:ModuleDuplication",
+        "duration": 100,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 0,
+        "name": "lh:computed:JSBundles",
+        "duration": 100,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 0,
+        "name": "lh:audit:legacy-javascript",
+        "duration": 100,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 0,
         "name": "lh:audit:appcache-manifest",
         "duration": 100,
         "entryType": "measure"
@@ -5599,6 +6303,12 @@
       },
       {
         "startTime": 0,
+        "name": "lh:audit:crawlable-anchors",
+        "duration": 100,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 0,
         "name": "lh:audit:is-crawlable",
         "duration": 100,
         "entryType": "measure"
@@ -5651,6 +6361,7 @@
   "i18n": {
     "rendererFormattedStrings": {
       "auditGroupExpandTooltip": "Show audits",
+      "calculatorLink": "See calculator.",
       "crcInitialNavigation": "Initial Navigation",
       "crcLongestDurationLabel": "Maximum critical path latency:",
       "dropdownCopyJSON": "Copy JSON",
@@ -5674,6 +6385,7 @@
       "runtimeDesktopEmulation": "Emulated Desktop",
       "runtimeMobileEmulation": "Emulated Moto G4",
       "runtimeNoEmulation": "No emulation",
+      "runtimeSettingsAxeVersion": "Axe version",
       "runtimeSettingsBenchmark": "CPU/Memory Power",
       "runtimeSettingsChannel": "Channel",
       "runtimeSettingsCPUThrottling": "CPU throttling",
@@ -5690,7 +6402,7 @@
       "thirdPartyResourcesLabel": "Show 3rd-party resources",
       "throttlingProvided": "Provided by environment",
       "toplevelWarningsMessage": "There were issues affecting this run of Lighthouse:",
-      "varianceDisclaimer": "Values are estimated and may vary. The performance score is [based only on these metrics](https://github.com/GoogleChrome/lighthouse/blob/d2ec9ffbb21de9ad1a0f86ed24575eda32c796f0/docs/scoring.md#how-are-the-scores-weighted).",
+      "varianceDisclaimer": "Values are estimated and may vary. The [performance score is calculated](https://web.dev/performance-scoring/) directly from these metrics.",
       "warningAuditsGroupTitle": "Passed audits but with warnings",
       "warningHeader": "Warnings: "
     },
@@ -5711,6 +6423,12 @@
       ],
       "lighthouse-core/audits/is-on-https.js | columnInsecureURL": [
         "audits[is-on-https].details.headings[0].text"
+      ],
+      "lighthouse-core/audits/is-on-https.js | columnResolution": [
+        "audits[is-on-https].details.headings[1].text"
+      ],
+      "lighthouse-core/audits/is-on-https.js | allowed": [
+        "audits[is-on-https].details.items[0].resolution"
       ],
       "lighthouse-core/audits/redirects-http.js | failureTitle": [
         "audits[redirects-http].title"
@@ -5889,40 +6607,52 @@
       ],
       "lighthouse-core/lib/i18n/i18n.js | columnURL": [
         "audits[errors-in-console].details.headings[0].text",
+        "audits[server-response-time].details.headings[0].label",
         "audits[image-aspect-ratio].details.headings[1].text",
         "audits[image-size-responsive].details.headings[1].text",
+        "audits[preload-fonts].details.headings[0].text",
         "audits.deprecations.details.headings[1].text",
         "audits[bootup-time].details.headings[0].text",
         "audits[network-rtt].details.headings[0].text",
         "audits[network-server-latency].details.headings[0].text",
+        "audits[long-tasks].details.headings[0].text",
+        "audits[no-unload-listeners].details.headings[0].text",
+        "audits[unsized-images].details.headings[1].text",
         "audits[uses-long-cache-ttl].details.headings[0].text",
         "audits[total-byte-weight].details.headings[0].text",
         "audits[render-blocking-resources].details.headings[0].label",
         "audits[unminified-javascript].details.headings[0].label",
         "audits[uses-webp-images].details.headings[1].label",
         "audits[uses-text-compression].details.headings[0].label",
+        "audits[legacy-javascript].details.headings[0].label",
         "audits[geolocation-on-start].details.headings[0].text",
         "audits[no-document-write].details.headings[0].text",
         "audits[notification-on-start].details.headings[0].text",
-        "audits[uses-http2].details.headings[0].text",
+        "audits[uses-http2].details.headings[0].label",
         "audits[uses-passive-event-listeners].details.headings[0].text"
       ],
       "lighthouse-core/audits/errors-in-console.js | columnDesc": [
         "audits[errors-in-console].details.headings[1].text"
       ],
-      "lighthouse-core/audits/time-to-first-byte.js | title": [
-        "audits[time-to-first-byte].title"
+      "lighthouse-core/audits/server-response-time.js | title": [
+        "audits[server-response-time].title"
       ],
-      "lighthouse-core/audits/time-to-first-byte.js | description": [
-        "audits[time-to-first-byte].description"
+      "lighthouse-core/audits/server-response-time.js | description": [
+        "audits[server-response-time].description"
       ],
-      "lighthouse-core/audits/time-to-first-byte.js | displayValue": [
+      "lighthouse-core/audits/server-response-time.js | displayValue": [
         {
           "values": {
             "timeInMs": 570.5630000000001
           },
-          "path": "audits[time-to-first-byte].displayValue"
+          "path": "audits[server-response-time].displayValue"
         }
+      ],
+      "lighthouse-core/lib/i18n/i18n.js | columnTimeSpent": [
+        "audits[server-response-time].details.headings[1].label",
+        "audits[mainthread-work-breakdown].details.headings[1].text",
+        "audits[network-rtt].details.headings[1].text",
+        "audits[network-server-latency].details.headings[1].text"
       ],
       "lighthouse-core/lib/i18n/i18n.js | firstCPUIdleMetric": [
         "audits[first-cpu-idle].title",
@@ -6027,6 +6757,12 @@
       "lighthouse-core/audits/image-size-responsive.js | columnExpected": [
         "audits[image-size-responsive].details.headings[4].text"
       ],
+      "lighthouse-core/audits/preload-fonts.js | failureTitle": [
+        "audits[preload-fonts].title"
+      ],
+      "lighthouse-core/audits/preload-fonts.js | description": [
+        "audits[preload-fonts].description"
+      ],
       "lighthouse-core/audits/deprecations.js | failureTitle": [
         "audits.deprecations.title"
       ],
@@ -6052,11 +6788,6 @@
       ],
       "lighthouse-core/audits/mainthread-work-breakdown.js | columnCategory": [
         "audits[mainthread-work-breakdown].details.headings[0].text"
-      ],
-      "lighthouse-core/lib/i18n/i18n.js | columnTimeSpent": [
-        "audits[mainthread-work-breakdown].details.headings[1].text",
-        "audits[network-rtt].details.headings[1].text",
-        "audits[network-server-latency].details.headings[1].text"
       ],
       "lighthouse-core/audits/bootup-time.js | title": [
         "audits[bootup-time].title"
@@ -6252,17 +6983,137 @@
       "lighthouse-core/audits/largest-contentful-paint-element.js | description": [
         "audits[largest-contentful-paint-element].description"
       ],
-      "lighthouse-core/audits/largest-contentful-paint-element.js | displayValue": [
+      "lighthouse-core/lib/i18n/i18n.js | displayValueElementsFound": [
         {
           "values": {
-            "itemCount": 1
+            "nodeCount": 1
           },
           "path": "audits[largest-contentful-paint-element].displayValue"
+        },
+        {
+          "values": {
+            "nodeCount": 4
+          },
+          "path": "audits[layout-shift-elements].displayValue"
         }
       ],
       "lighthouse-core/lib/i18n/i18n.js | columnElement": [
         "audits[largest-contentful-paint-element].details.headings[0].text",
+        "audits[layout-shift-elements].details.headings[0].text",
+        "audits[non-composited-animations].details.headings[0].text",
         "audits[dom-size].details.headings[1].text"
+      ],
+      "lighthouse-core/audits/layout-shift-elements.js | title": [
+        "audits[layout-shift-elements].title"
+      ],
+      "lighthouse-core/audits/layout-shift-elements.js | description": [
+        "audits[layout-shift-elements].description"
+      ],
+      "lighthouse-core/audits/layout-shift-elements.js | columnContribution": [
+        "audits[layout-shift-elements].details.headings[1].text"
+      ],
+      "lighthouse-core/audits/long-tasks.js | title": [
+        "audits[long-tasks].title"
+      ],
+      "lighthouse-core/audits/long-tasks.js | description": [
+        "audits[long-tasks].description"
+      ],
+      "lighthouse-core/audits/long-tasks.js | displayValue": [
+        {
+          "values": {
+            "itemCount": 4
+          },
+          "path": "audits[long-tasks].displayValue"
+        }
+      ],
+      "lighthouse-core/lib/i18n/i18n.js | columnStartTime": [
+        "audits[long-tasks].details.headings[1].text"
+      ],
+      "lighthouse-core/lib/i18n/i18n.js | columnDuration": [
+        "audits[long-tasks].details.headings[2].text"
+      ],
+      "lighthouse-core/audits/no-unload-listeners.js | failureTitle": [
+        "audits[no-unload-listeners].title"
+      ],
+      "lighthouse-core/audits/no-unload-listeners.js | description": [
+        "audits[no-unload-listeners].description"
+      ],
+      "lighthouse-core/audits/non-composited-animations.js | title": [
+        "audits[non-composited-animations].title"
+      ],
+      "lighthouse-core/audits/non-composited-animations.js | description": [
+        "audits[non-composited-animations].description"
+      ],
+      "lighthouse-core/audits/non-composited-animations.js | displayValue": [
+        {
+          "values": {
+            "itemCount": 1
+          },
+          "path": "audits[non-composited-animations].displayValue"
+        }
+      ],
+      "lighthouse-core/lib/i18n/i18n.js | columnName": [
+        "audits[non-composited-animations].details.headings[1].text",
+        "audits[js-libraries].details.headings[0].text"
+      ],
+      "lighthouse-core/audits/non-composited-animations.js | unsupportedCSSProperty": [
+        {
+          "values": {
+            "propertyCount": 1,
+            "properties": "width"
+          },
+          "path": "audits[non-composited-animations].details.items[0].subItems.items[0].failureReason"
+        },
+        {
+          "values": {
+            "propertyCount": 2,
+            "properties": "height, left"
+          },
+          "path": "audits[non-composited-animations].details.items[0].subItems.items[1].failureReason"
+        },
+        {
+          "values": {
+            "propertyCount": 1,
+            "properties": "background-color"
+          },
+          "path": "audits[non-composited-animations].details.items[0].subItems.items[2].failureReason"
+        }
+      ],
+      "lighthouse-core/audits/unsized-images.js | failureTitle": [
+        "audits[unsized-images].title"
+      ],
+      "lighthouse-core/audits/unsized-images.js | description": [
+        "audits[unsized-images].description"
+      ],
+      "lighthouse-core/lib/i18n/i18n.js | columnFailingElem": [
+        "audits[unsized-images].details.headings[2].text",
+        "audits[color-contrast].details.headings[0].text",
+        "audits[html-has-lang].details.headings[0].text",
+        "audits[image-alt].details.headings[0].text",
+        "audits.label.details.headings[0].text",
+        "audits[link-name].details.headings[0].text",
+        "audits[object-alt].details.headings[0].text",
+        "audits[password-inputs-can-be-pasted-into].details.headings[0].text"
+      ],
+      "lighthouse-core/audits/large-javascript-libraries.js | title": [
+        "audits[large-javascript-libraries].title"
+      ],
+      "lighthouse-core/audits/large-javascript-libraries.js | description": [
+        "audits[large-javascript-libraries].description"
+      ],
+      "lighthouse-core/audits/large-javascript-libraries.js | displayValue": [
+        {
+          "values": {
+            "libraryCount": 0
+          },
+          "path": "audits[large-javascript-libraries].displayValue"
+        }
+      ],
+      "lighthouse-core/audits/valid-source-maps.js | title": [
+        "audits[valid-source-maps].title"
+      ],
+      "lighthouse-core/audits/valid-source-maps.js | description": [
+        "audits[valid-source-maps].description"
       ],
       "lighthouse-core/audits/manual/pwa-cross-browser.js | title": [
         "audits[pwa-cross-browser].title"
@@ -6371,14 +7222,6 @@
       ],
       "lighthouse-core/audits/accessibility/color-contrast.js | description": [
         "audits[color-contrast].description"
-      ],
-      "lighthouse-core/audits/accessibility/axe-audit.js | failingElementsHeader": [
-        "audits[color-contrast].details.headings[0].text",
-        "audits[html-has-lang].details.headings[0].text",
-        "audits[image-alt].details.headings[0].text",
-        "audits.label.details.headings[0].text",
-        "audits[link-name].details.headings[0].text",
-        "audits[object-alt].details.headings[0].text"
       ],
       "lighthouse-core/audits/accessibility/definition-list.js | title": [
         "audits[definition-list].title"
@@ -6591,7 +7434,8 @@
         "audits[render-blocking-resources].details.headings[2].label",
         "audits[unminified-javascript].details.headings[2].label",
         "audits[uses-webp-images].details.headings[3].label",
-        "audits[uses-text-compression].details.headings[2].label"
+        "audits[uses-text-compression].details.headings[2].label",
+        "audits[legacy-javascript].details.headings[2].label"
       ],
       "lighthouse-core/audits/byte-efficiency/unminified-css.js | title": [
         "audits[unminified-css].title"
@@ -6623,6 +7467,12 @@
             "wastedBytes": 64646
           },
           "path": "audits[uses-text-compression].displayValue"
+        },
+        {
+          "values": {
+            "wastedBytes": 21205
+          },
+          "path": "audits[legacy-javascript].displayValue"
         }
       ],
       "lighthouse-core/audits/byte-efficiency/unused-css-rules.js | title": [
@@ -6669,6 +7519,18 @@
       ],
       "lighthouse-core/audits/byte-efficiency/efficient-animated-content.js | description": [
         "audits[efficient-animated-content].description"
+      ],
+      "lighthouse-core/audits/byte-efficiency/duplicated-javascript.js | title": [
+        "audits[duplicated-javascript].title"
+      ],
+      "lighthouse-core/audits/byte-efficiency/duplicated-javascript.js | description": [
+        "audits[duplicated-javascript].description"
+      ],
+      "lighthouse-core/audits/byte-efficiency/legacy-javascript.js | title": [
+        "audits[legacy-javascript].title"
+      ],
+      "lighthouse-core/audits/byte-efficiency/legacy-javascript.js | description": [
+        "audits[legacy-javascript].description"
       ],
       "lighthouse-core/audits/dobetterweb/appcache-manifest.js | failureTitle": [
         "audits[appcache-manifest].title"
@@ -6734,7 +7596,7 @@
       "lighthouse-core/audits/dobetterweb/external-anchors-use-rel-noopener.js | warning": [
         {
           "values": {
-            "anchorHTML": "<a target=\"blank\">Hello</a>"
+            "anchorHTML": "<a target=\"_blank\">"
           },
           "path": "audits[external-anchors-use-rel-noopener].warnings[0]"
         }
@@ -6769,7 +7631,7 @@
       "lighthouse-core/audits/dobetterweb/no-vulnerable-libraries.js | displayValue": [
         {
           "values": {
-            "itemCount": 2
+            "itemCount": 4
           },
           "path": "audits[no-vulnerable-libraries].displayValue"
         }
@@ -6792,9 +7654,6 @@
       "lighthouse-core/audits/dobetterweb/js-libraries.js | description": [
         "audits[js-libraries].description"
       ],
-      "lighthouse-core/lib/i18n/i18n.js | columnName": [
-        "audits[js-libraries].details.headings[0].text"
-      ],
       "lighthouse-core/audits/dobetterweb/js-libraries.js | columnVersion": [
         "audits[js-libraries].details.headings[1].text"
       ],
@@ -6810,10 +7669,7 @@
       "lighthouse-core/audits/dobetterweb/password-inputs-can-be-pasted-into.js | description": [
         "audits[password-inputs-can-be-pasted-into].description"
       ],
-      "lighthouse-core/audits/dobetterweb/password-inputs-can-be-pasted-into.js | columnFailingElem": [
-        "audits[password-inputs-can-be-pasted-into].details.headings[0].text"
-      ],
-      "lighthouse-core/audits/dobetterweb/uses-http2.js | failureTitle": [
+      "lighthouse-core/audits/dobetterweb/uses-http2.js | title": [
         "audits[uses-http2].title"
       ],
       "lighthouse-core/audits/dobetterweb/uses-http2.js | description": [
@@ -6828,7 +7684,7 @@
         }
       ],
       "lighthouse-core/audits/dobetterweb/uses-http2.js | columnProtocol": [
-        "audits[uses-http2].details.headings[1].text"
+        "audits[uses-http2].details.headings[1].label"
       ],
       "lighthouse-core/audits/dobetterweb/uses-passive-event-listeners.js | failureTitle": [
         "audits[uses-passive-event-listeners].title"
@@ -6862,11 +7718,35 @@
           "path": "audits[font-size].displayValue"
         }
       ],
+      "lighthouse-core/lib/i18n/i18n.js | columnSource": [
+        "audits[font-size].details.headings[0].text"
+      ],
+      "lighthouse-core/audits/seo/font-size.js | columnSelector": [
+        "audits[font-size].details.headings[1].text"
+      ],
+      "lighthouse-core/audits/seo/font-size.js | columnPercentPageText": [
+        "audits[font-size].details.headings[2].text"
+      ],
+      "lighthouse-core/audits/seo/font-size.js | columnFontSize": [
+        "audits[font-size].details.headings[3].text"
+      ],
+      "lighthouse-core/audits/seo/font-size.js | legibleText": [
+        "audits[font-size].details.items[0].source.value"
+      ],
       "lighthouse-core/audits/seo/link-text.js | title": [
         "audits[link-text].title"
       ],
       "lighthouse-core/audits/seo/link-text.js | description": [
         "audits[link-text].description"
+      ],
+      "lighthouse-core/audits/seo/crawlable-anchors.js | failureTitle": [
+        "audits[crawlable-anchors].title"
+      ],
+      "lighthouse-core/audits/seo/crawlable-anchors.js | description": [
+        "audits[crawlable-anchors].description"
+      ],
+      "lighthouse-core/audits/seo/crawlable-anchors.js | columnFailingLink": [
+        "audits[crawlable-anchors].details.headings[0].text"
       ],
       "lighthouse-core/audits/seo/is-crawlable.js | title": [
         "audits[is-crawlable].title"
@@ -7068,47 +7948,47 @@
       "lighthouse-core/config/default-config.js | bestPracticesGeneralGroupTitle": [
         "categoryGroups[best-practices-general].title"
       ],
-      "stack-packs/packs/wordpress.js | unused_css_rules": [
-        "stackPacks[0].descriptions[unused-css-rules]"
+      "node_modules/lighthouse-stack-packs/packs/wordpress.js | unused_css_rules": [
+        "stackPacks[0].descriptions[unused_css_rules]"
       ],
-      "stack-packs/packs/wordpress.js | uses_webp_images": [
-        "stackPacks[0].descriptions[uses-webp-images]"
+      "node_modules/lighthouse-stack-packs/packs/wordpress.js | uses_webp_images": [
+        "stackPacks[0].descriptions[uses_webp_images]"
       ],
-      "stack-packs/packs/wordpress.js | offscreen_images": [
-        "stackPacks[0].descriptions[offscreen-images]"
+      "node_modules/lighthouse-stack-packs/packs/wordpress.js | offscreen_images": [
+        "stackPacks[0].descriptions[offscreen_images]"
       ],
-      "stack-packs/packs/wordpress.js | total_byte_weight": [
-        "stackPacks[0].descriptions[total-byte-weight]"
+      "node_modules/lighthouse-stack-packs/packs/wordpress.js | total_byte_weight": [
+        "stackPacks[0].descriptions[total_byte_weight]"
       ],
-      "stack-packs/packs/wordpress.js | render_blocking_resources": [
-        "stackPacks[0].descriptions[render-blocking-resources]"
+      "node_modules/lighthouse-stack-packs/packs/wordpress.js | render_blocking_resources": [
+        "stackPacks[0].descriptions[render_blocking_resources]"
       ],
-      "stack-packs/packs/wordpress.js | unminified_css": [
-        "stackPacks[0].descriptions[unminified-css]"
+      "node_modules/lighthouse-stack-packs/packs/wordpress.js | unminified_css": [
+        "stackPacks[0].descriptions[unminified_css]"
       ],
-      "stack-packs/packs/wordpress.js | unminified_javascript": [
-        "stackPacks[0].descriptions[unminified-javascript]"
+      "node_modules/lighthouse-stack-packs/packs/wordpress.js | unminified_javascript": [
+        "stackPacks[0].descriptions[unminified_javascript]"
       ],
-      "stack-packs/packs/wordpress.js | efficient_animated_content": [
-        "stackPacks[0].descriptions[efficient-animated-content]"
+      "node_modules/lighthouse-stack-packs/packs/wordpress.js | efficient_animated_content": [
+        "stackPacks[0].descriptions[efficient_animated_content]"
       ],
-      "stack-packs/packs/wordpress.js | unused_javascript": [
-        "stackPacks[0].descriptions[unused-javascript]"
+      "node_modules/lighthouse-stack-packs/packs/wordpress.js | unused_javascript": [
+        "stackPacks[0].descriptions[unused_javascript]"
       ],
-      "stack-packs/packs/wordpress.js | uses_long_cache_ttl": [
-        "stackPacks[0].descriptions[uses-long-cache-ttl]"
+      "node_modules/lighthouse-stack-packs/packs/wordpress.js | uses_long_cache_ttl": [
+        "stackPacks[0].descriptions[uses_long_cache_ttl]"
       ],
-      "stack-packs/packs/wordpress.js | uses_optimized_images": [
-        "stackPacks[0].descriptions[uses-optimized-images]"
+      "node_modules/lighthouse-stack-packs/packs/wordpress.js | uses_optimized_images": [
+        "stackPacks[0].descriptions[uses_optimized_images]"
       ],
-      "stack-packs/packs/wordpress.js | uses_text_compression": [
-        "stackPacks[0].descriptions[uses-text-compression]"
+      "node_modules/lighthouse-stack-packs/packs/wordpress.js | uses_text_compression": [
+        "stackPacks[0].descriptions[uses_text_compression]"
       ],
-      "stack-packs/packs/wordpress.js | uses_responsive_images": [
-        "stackPacks[0].descriptions[uses-responsive-images]"
+      "node_modules/lighthouse-stack-packs/packs/wordpress.js | uses_responsive_images": [
+        "stackPacks[0].descriptions[uses_responsive_images]"
       ],
-      "stack-packs/packs/wordpress.js | time_to_first_byte": [
-        "stackPacks[0].descriptions[time-to-first-byte]"
+      "node_modules/lighthouse-stack-packs/packs/wordpress.js | time_to_first_byte": [
+        "stackPacks[0].descriptions[time_to_first_byte]"
       ]
     }
   },
@@ -7116,22 +7996,22 @@
     {
       "id": "wordpress",
       "title": "WordPress",
-      "iconDataURL": "data:image/svg+xml,%3Csvg viewBox='0 0 122.5 122.5' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%232f3439'%3E%3Cpath d='M8.7 61.3c0 20.8 12.1 38.7 29.6 47.3l-25-68.7c-3 6.5-4.6 13.7-4.6 21.4zM96.7 58.6c0-6.5-2.3-11-4.3-14.5-2.7-4.3-5.2-8-5.2-12.3 0-4.8 3.7-9.3 8.9-9.3h.7a52.4 52.4 0 0 0-79.4 9.9h3.3c5.5 0 14-.6 14-.6 2.9-.2 3.2 4 .4 4.3 0 0-2.9.4-6 .5l19.1 57L59.7 59l-8.2-22.5c-2.8-.1-5.5-.5-5.5-.5-2.8-.1-2.5-4.5.3-4.3 0 0 8.7.7 13.9.7 5.5 0 14-.7 14-.7 2.8-.2 3.2 4 .3 4.3 0 0-2.8.4-6 .5l19 56.5 5.2-17.5c2.3-7.3 4-12.5 4-17z'/%3E%3Cpath d='M62.2 65.9l-15.8 45.8a52.6 52.6 0 0 0 32.3-.9l-.4-.7zM107.4 36a49.6 49.6 0 0 1-3.6 24.2l-16.1 46.5A52.5 52.5 0 0 0 107.4 36z'/%3E%3Cpath d='M61.3 0a61.3 61.3 0 1 0 .1 122.7A61.3 61.3 0 0 0 61.3 0zm0 119.7a58.5 58.5 0 1 1 .1-117 58.5 58.5 0 0 1-.1 117z'/%3E%3C/g%3E%3C/svg%3E",
+      "iconDataURL": "data:image/svg+xml,%3Csvg viewBox=\"0 0 122.5 122.5\" xmlns=\"http://www.w3.org/2000/svg\"%3E%3Cg fill=\"%232f3439\"%3E%3Cpath d=\"M8.7 61.3c0 20.8 12.1 38.7 29.6 47.3l-25-68.7c-3 6.5-4.6 13.7-4.6 21.4zM96.7 58.6c0-6.5-2.3-11-4.3-14.5-2.7-4.3-5.2-8-5.2-12.3 0-4.8 3.7-9.3 8.9-9.3h.7a52.4 52.4 0 0 0-79.4 9.9h3.3c5.5 0 14-.6 14-.6 2.9-.2 3.2 4 .4 4.3 0 0-2.9.4-6 .5l19.1 57L59.7 59l-8.2-22.5c-2.8-.1-5.5-.5-5.5-.5-2.8-.1-2.5-4.5.3-4.3 0 0 8.7.7 13.9.7 5.5 0 14-.7 14-.7 2.8-.2 3.2 4 .3 4.3 0 0-2.8.4-6 .5l19 56.5 5.2-17.5c2.3-7.3 4-12.5 4-17z\"/%3E%3Cpath d=\"M62.2 65.9l-15.8 45.8a52.6 52.6 0 0 0 32.3-.9l-.4-.7zM107.4 36a49.6 49.6 0 0 1-3.6 24.2l-16.1 46.5A52.5 52.5 0 0 0 107.4 36z\"/%3E%3Cpath d=\"M61.3 0a61.3 61.3 0 1 0 .1 122.7A61.3 61.3 0 0 0 61.3 0zm0 119.7a58.5 58.5 0 1 1 .1-117 58.5 58.5 0 0 1-.1 117z\"/%3E%3C/g%3E%3C/svg%3E",
       "descriptions": {
-        "unused-css-rules": "Consider reducing, or switching, the number of [WordPress plugins](https://wordpress.org/plugins/) loading unused CSS in your page. To identify plugins that are adding extraneous CSS, try running [code coverage](https://developers.google.com/web/updates/2017/04/devtools-release-notes#coverage) in Chrome DevTools. You can identify the theme/plugin responsible from the URL of the stylesheet. Look out for plugins that have many stylesheets in the list which have a lot of red in code coverage. A plugin should only enqueue a stylesheet if it is actually used on the page.",
-        "uses-webp-images": "Consider using a [plugin](https://wordpress.org/plugins/search/convert+webp/) or service that will automatically convert your uploaded images to the optimal formats.",
-        "offscreen-images": "Install a [lazy-load WordPress plugin](https://wordpress.org/plugins/search/lazy+load/) that provides the ability to defer any offscreen images, or switch to a theme that provides that functionality. Also consider using [the AMP plugin](https://wordpress.org/plugins/amp/).",
-        "total-byte-weight": "Consider showing excerpts in your post lists (e.g. via the more tag), reducing the number of posts shown on a given page, breaking your long posts into multiple pages, or using a plugin to lazy-load comments.",
-        "render-blocking-resources": "There are a number of WordPress plugins that can help you [inline critical assets](https://wordpress.org/plugins/search/critical+css/) or [defer less important resources](https://wordpress.org/plugins/search/defer+css+javascript/). Beware that optimizations provided by these plugins may break features of your theme or plugins, so you will likely need to make code changes.",
-        "unminified-css": "A number of [WordPress plugins](https://wordpress.org/plugins/search/minify+css/) can speed up your site by concatenating, minifying, and compressing your styles. You may also want to use a build process to do this minification up-front if possible.",
-        "unminified-javascript": "A number of [WordPress plugins](https://wordpress.org/plugins/search/minify+javascript/) can speed up your site by concatenating, minifying, and compressing your scripts. You may also want to use a build process to do this minification up front if possible.",
-        "efficient-animated-content": "Consider uploading your GIF to a service which will make it available to embed as an HTML5 video.",
-        "unused-javascript": "Consider reducing, or switching, the number of [WordPress plugins](https://wordpress.org/plugins/) loading unused JavaScript in your page. To identify plugins that are adding extraneous JS, try running [code coverage](https://developers.google.com/web/updates/2017/04/devtools-release-notes#coverage) in Chrome DevTools. You can identify the theme/plugin responsible from the URL of the script. Look out for plugins that have many scripts in the list which have a lot of red in code coverage. A plugin should only enqueue a script if it is actually used on the page.",
-        "uses-long-cache-ttl": "Read about [Browser Caching in WordPress](https://wordpress.org/support/article/optimization/#browser-caching).",
-        "uses-optimized-images": "Consider using an [image optimization WordPress plugin](https://wordpress.org/plugins/search/optimize+images/) that compresses your images while retaining quality.",
-        "uses-text-compression": "You can enable text compression in your web server configuration.",
-        "uses-responsive-images": "Upload images directly through the [media library](https://wordpress.org/support/article/media-library-screen/) to ensure that the required image sizes are available, and then insert them from the media library or use the image widget to ensure the optimal image sizes are used (including those for the responsive breakpoints). Avoid using `Full Size` images unless the dimensions are adequate for their usage. [Learn More](https://wordpress.org/support/article/inserting-images-into-posts-and-pages/).",
-        "time-to-first-byte": "Themes, plugins, and server specifications all contribute to server response time. Consider finding a more optimized theme, carefully selecting an optimization plugin, and/or upgrading your server."
+        "unused_css_rules": "Consider reducing, or switching, the number of [WordPress plugins](https://wordpress.org/plugins/) loading unused CSS in your page. To identify plugins that are adding extraneous CSS, try running [code coverage](https://developers.google.com/web/updates/2017/04/devtools-release-notes#coverage) in Chrome DevTools. You can identify the theme/plugin responsible from the URL of the stylesheet. Look out for plugins that have many stylesheets in the list which have a lot of red in code coverage. A plugin should only enqueue a stylesheet if it is actually used on the page.",
+        "uses_webp_images": "Consider using a [plugin](https://wordpress.org/plugins/search/convert+webp/) or service that will automatically convert your uploaded images to the optimal formats.",
+        "offscreen_images": "Install a [lazy-load WordPress plugin](https://wordpress.org/plugins/search/lazy+load/) that provides the ability to defer any offscreen images, or switch to a theme that provides that functionality. Also consider using [the AMP plugin](https://wordpress.org/plugins/amp/).",
+        "total_byte_weight": "Consider showing excerpts in your post lists (e.g. via the more tag), reducing the number of posts shown on a given page, breaking your long posts into multiple pages, or using a plugin to lazy-load comments.",
+        "render_blocking_resources": "There are a number of WordPress plugins that can help you [inline critical assets](https://wordpress.org/plugins/search/critical+css/) or [defer less important resources](https://wordpress.org/plugins/search/defer+css+javascript/). Beware that optimizations provided by these plugins may break features of your theme or plugins, so you will likely need to make code changes.",
+        "unminified_css": "A number of [WordPress plugins](https://wordpress.org/plugins/search/minify+css/) can speed up your site by concatenating, minifying, and compressing your styles. You may also want to use a build process to do this minification up-front if possible.",
+        "unminified_javascript": "A number of [WordPress plugins](https://wordpress.org/plugins/search/minify+javascript/) can speed up your site by concatenating, minifying, and compressing your scripts. You may also want to use a build process to do this minification up front if possible.",
+        "efficient_animated_content": "Consider uploading your GIF to a service which will make it available to embed as an HTML5 video.",
+        "unused_javascript": "Consider reducing, or switching, the number of [WordPress plugins](https://wordpress.org/plugins/) loading unused JavaScript in your page. To identify plugins that are adding extraneous JS, try running [code coverage](https://developers.google.com/web/updates/2017/04/devtools-release-notes#coverage) in Chrome DevTools. You can identify the theme/plugin responsible from the URL of the script. Look out for plugins that have many scripts in the list which have a lot of red in code coverage. A plugin should only enqueue a script if it is actually used on the page.",
+        "uses_long_cache_ttl": "Read about [Browser Caching in WordPress](https://wordpress.org/support/article/optimization/#browser-caching).",
+        "uses_optimized_images": "Consider using an [image optimization WordPress plugin](https://wordpress.org/plugins/search/optimize+images/) that compresses your images while retaining quality.",
+        "uses_text_compression": "You can enable text compression in your web server configuration.",
+        "uses_responsive_images": "Upload images directly through the [media library](https://wordpress.org/support/article/media-library-screen/) to ensure that the required image sizes are available, and then insert them from the media library or use the image widget to ensure the optimal image sizes are used (including those for the responsive breakpoints). Avoid using `Full Size` images unless the dimensions are adequate for their usage. [Learn More](https://wordpress.org/support/article/inserting-images-into-posts-and-pages/).",
+        "time_to_first_byte": "Themes, plugins, and server specifications all contribute to server response time. Consider finding a more optimized theme, carefully selecting an optimization plugin, and/or upgrading your server."
       }
     }
   ]

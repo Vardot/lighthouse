@@ -12,7 +12,7 @@ const i18n = require('../../lib/i18n/i18n.js');
 const UIStrings = {
   /** Description of the Cumulative Layout Shift metric that indicates how much the page changes its layout while it loads. If big segments of the page shift their location during load, the Cumulative Layout Shift will be higher. This description is displayed within a tooltip when the user hovers on the metric name to see more. No character length limits. 'Learn More' becomes link text to additional documentation. */
   description: 'Cumulative Layout Shift measures the movement of visible ' +
-               'elements within the viewport. [Learn more](https://web.dev/cls).',
+               'elements within the viewport. [Learn more](https://web.dev/cls/).',
 };
 
 const str_ = i18n.createMessageInstanceIdFn(__filename, UIStrings);
@@ -39,11 +39,11 @@ class CumulativeLayoutShift extends Audit {
    */
   static get defaultOptions() {
     return {
-      // Calibrated to assure 0.1 gets a score of 0.9. https://web.dev/cls/#what-is-a-good-cls-score
+      // https://web.dev/cls/#what-is-a-good-cls-score
       // This 0.1 target score was determined through both manual evaluation and large-scale analysis.
-      // see https://www.desmos.com/calculator/1xtb5iz8iq
-      scorePODR: 0.054,
-      scoreMedian: 0.25,
+      // see https://www.desmos.com/calculator/ksp7q91nop
+      p10: 0.1,
+      median: 0.25,
     };
   }
 
@@ -64,9 +64,8 @@ class CumulativeLayoutShift extends Audit {
 
     return {
       score: Audit.computeLogNormalScore(
-        metricResult.value,
-        context.options.scorePODR,
-        context.options.scoreMedian
+        {p10: context.options.p10, median: context.options.median},
+        metricResult.value
       ),
       numericValue: metricResult.value,
       numericUnit: 'unitless',

@@ -8,6 +8,9 @@
 const makeComputedArtifact = require('./computed-artifact.js');
 const JsBundles = require('./js-bundles.js');
 
+const RELATIVE_SIZE_THRESHOLD = 0.1;
+const ABSOLUTE_SIZE_THRESHOLD_BYTES = 1024 * 0.5;
+
 class ModuleDuplication {
   /**
    * @param {string} source
@@ -40,6 +43,37 @@ class ModuleDuplication {
   }
 
   /**
+   * @param {Map<string, Array<{scriptUrl: string, resourceSize: number}>>} moduleNameToSourceData
+   */
+  static _normalizeAggregatedData(moduleNameToSourceData) {
+    for (const [key, originalSourceData] of moduleNameToSourceData.entries()) {
+      let sourceData = originalSourceData;
+
+      // Sort by resource size.
+      sourceData.sort((a, b) => b.resourceSize - a.resourceSize);
+
+      // Remove modules smaller than a % size of largest.
+      if (sourceData.length > 1) {
+        const largestResourceSize = sourceData[0].resourceSize;
+        sourceData = sourceData.filter(data => {
+          const percentSize = data.resourceSize / largestResourceSize;
+          return percentSize >= RELATIVE_SIZE_THRESHOLD;
+        });
+      }
+
+      // Remove modules smaller than an absolute theshold.
+      sourceData = sourceData.filter(data => data.resourceSize >= ABSOLUTE_SIZE_THRESHOLD_BYTES);
+
+      // Delete source datas with only one value (no duplicates).
+      if (sourceData.length > 1) {
+        moduleNameToSourceData.set(key, sourceData);
+      } else {
+        moduleNameToSourceData.delete(key);
+      }
+    }
+  }
+
+  /**
    * @param {LH.Artifacts} artifacts
    * @param {LH.Audit.Context} context
    */
@@ -49,7 +83,7 @@ class ModuleDuplication {
     /**
      * @typedef SourceData
      * @property {string} source
-     * @property {number} size
+     * @property {number} resourceSize
      */
 
     /** @type {Map<LH.Artifacts.RawSourceMap, SourceData[]>} */
@@ -68,36 +102,32 @@ class ModuleDuplication {
         const sourceSize = sizes.files[sourceKey];
         sourceDataArray.push({
           source: ModuleDuplication._normalizeSource(rawMap.sources[i]),
-          size: sourceSize,
+          resourceSize: sourceSize,
         });
       }
     }
 
-    /** @type {Map<string, Array<{scriptUrl: string, size: number}>>} */
-    const sourceDataAggregated = new Map();
+    /** @type {Map<string, Array<{scriptUrl: string, resourceSize: number}>>} */
+    const moduleNameToSourceData = new Map();
     for (const {rawMap, script} of bundles) {
       const sourceDataArray = sourceDatasMap.get(rawMap);
       if (!sourceDataArray) continue;
 
       for (const sourceData of sourceDataArray) {
-        let data = sourceDataAggregated.get(sourceData.source);
+        let data = moduleNameToSourceData.get(sourceData.source);
         if (!data) {
           data = [];
-          sourceDataAggregated.set(sourceData.source, data);
+          moduleNameToSourceData.set(sourceData.source, data);
         }
         data.push({
           scriptUrl: script.src || '',
-          size: sourceData.size,
+          resourceSize: sourceData.resourceSize,
         });
       }
     }
 
-    for (const [key, value] of sourceDataAggregated.entries()) {
-      if (value.length === 1) sourceDataAggregated.delete(key);
-      else value.sort((a, b) => b.size - a.size);
-    }
-
-    return sourceDataAggregated;
+    this._normalizeAggregatedData(moduleNameToSourceData);
+    return moduleNameToSourceData;
   }
 }
 

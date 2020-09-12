@@ -17,8 +17,8 @@ const LanternEil = require('../computed/metrics/lantern-estimated-input-latency.
 const LanternLcp = require('../computed/metrics/lantern-largest-contentful-paint.js');
 
 // Parameters (in ms) for log-normal CDF scoring. To see the curve:
-//   https://www.desmos.com/calculator/rjp0lbit8y
-const SCORING_POINT_OF_DIMINISHING_RETURNS = 1700;
+//   https://www.desmos.com/calculator/bksgkihhj8
+const SCORING_P10 = 3651;
 const SCORING_MEDIAN = 10000;
 
 class PredictivePerf extends Audit {
@@ -46,7 +46,7 @@ class PredictivePerf extends Audit {
     const trace = artifacts.traces[Audit.DEFAULT_PASS];
     const devtoolsLog = artifacts.devtoolsLogs[Audit.DEFAULT_PASS];
     /** @type {LH.Config.Settings} */
-    // @ts-ignore - TODO(bckenny): allow optional `throttling` settings
+    // @ts-expect-error - TODO(bckenny): allow optional `throttling` settings
     const settings = {}; // Use default settings.
     const fcp = await LanternFcp.request({trace, devtoolsLog, settings}, context);
     const fmp = await LanternFmp.request({trace, devtoolsLog, settings}, context);
@@ -87,9 +87,8 @@ class PredictivePerf extends Audit {
     };
 
     const score = Audit.computeLogNormalScore(
-      values.roughEstimateOfTTI,
-      SCORING_POINT_OF_DIMINISHING_RETURNS,
-      SCORING_MEDIAN
+      {p10: SCORING_P10, median: SCORING_MEDIAN},
+      values.roughEstimateOfTTI
     );
 
     const i18n = new I18n(context.settings.locale);

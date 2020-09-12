@@ -19,6 +19,10 @@ const expectations = [
           async: false,
           defer: false,
           source: 'head',
+          // Only do a single assertion for `devtoolsNodePath`: this can be flaky for elements
+          // deep in the DOM, and the sample LHR test has plenty of places that would catch
+          // a regression in `devtoolsNodePath` calculation. Keep just one for the benefit
+          // of other smoke test runners.
           devtoolsNodePath: '2,HTML,0,HEAD,3,SCRIPT',
         },
         {
@@ -27,7 +31,6 @@ const expectations = [
           async: false,
           defer: false,
           source: 'head',
-          devtoolsNodePath: '2,HTML,0,HEAD,5,SCRIPT',
         },
         {
           type: null,
@@ -35,7 +38,6 @@ const expectations = [
           async: false,
           defer: false,
           source: 'head',
-          devtoolsNodePath: '2,HTML,0,HEAD,6,SCRIPT',
         },
         {
           type: null,
@@ -43,7 +45,7 @@ const expectations = [
           async: false,
           defer: false,
           source: 'body',
-          devtoolsNodePath: '2,HTML,1,BODY,0,DIV,3,SCRIPT',
+          content: /shadowRoot/,
         },
         {
           type: null,
@@ -51,15 +53,7 @@ const expectations = [
           async: false,
           defer: false,
           source: 'body',
-          devtoolsNodePath: '2,HTML,1,BODY,3,SCRIPT',
-        },
-        {
-          type: null,
-          src: 'http://localhost:10200/byte-efficiency/delay-complete.js?delay=8000',
-          async: true,
-          defer: false,
-          source: 'body',
-          devtoolsNodePath: '2,HTML,1,BODY,1438,SCRIPT',
+          content: /generateInlineStyleWithSize/,
         },
         {
           type: null,
@@ -67,7 +61,6 @@ const expectations = [
           async: false,
           defer: false,
           source: 'body',
-          devtoolsNodePath: '2,HTML,1,BODY,1439,SCRIPT',
           content: /Used block #1/,
         },
         {
@@ -76,15 +69,49 @@ const expectations = [
           async: false,
           defer: false,
           source: 'body',
-          devtoolsNodePath: '2,HTML,1,BODY,1440,SCRIPT',
           content: /Unused block #1/,
         },
+        {
+          type: null,
+          src: 'http://localhost:10200/byte-efficiency/delay-complete.js?delay=8000',
+          async: true,
+          defer: false,
+          source: 'body',
+        },
       ],
+      JsUsage: {
+        // ScriptParsedEvent.embedderName wasn't added to the protocol until M86,
+        // and `some-custom-url.js` won't show without it.
+        // https://chromiumdash.appspot.com/commit/52ed57138d0b83e8afd9de25e60655c6ace7527c
+        '_minChromiumMilestone': 86,
+        'http://localhost:10200/byte-efficiency/tester.html': [
+          {url: 'http://localhost:10200/byte-efficiency/tester.html'},
+          {url: 'http://localhost:10200/byte-efficiency/tester.html'},
+          {url: 'http://localhost:10200/byte-efficiency/tester.html'},
+          {url: 'http://localhost:10200/byte-efficiency/tester.html'},
+          {url: '/some-custom-url.js'},
+        ],
+        'http://localhost:10200/byte-efficiency/script.js': [
+          {url: 'http://localhost:10200/byte-efficiency/script.js'},
+        ],
+        'http://localhost:10200/byte-efficiency/bundle.js': [
+          {url: 'http://localhost:10200/byte-efficiency/bundle.js'},
+        ],
+      },
     },
     lhr: {
       requestedUrl: 'http://localhost:10200/byte-efficiency/tester.html',
       finalUrl: 'http://localhost:10200/byte-efficiency/tester.html',
       audits: {
+        'uses-http2': {
+          score: '<1',
+          details: {
+            overallSavingsMs: '>0',
+            items: {
+              length: '>10',
+            },
+          },
+        },
         'unminified-css': {
           details: {
             overallSavingsBytes: '>17000',
@@ -108,7 +135,7 @@ const expectations = [
               },
               {
                 url: 'inline: \n  function unusedFunction() {\n    // Un...',
-                wastedBytes: '6581 +/- 100',
+                wastedBytes: '6700 +/- 100',
                 wastedPercent: '99.6 +/- 0.1',
               },
               {
@@ -134,12 +161,15 @@ const expectations = [
           },
         },
         'unused-javascript': {
+          // ScriptParsedEvent.embedderName wasn't added to the protocol until M86.
+          // https://chromiumdash.appspot.com/commit/52ed57138d0b83e8afd9de25e60655c6ace7527c
+          _minChromiumMilestone: 86,
           score: '<1',
           details: {
             // the specific ms value here is not meaningful for this smoketest
             // *some* savings should be reported
             overallSavingsMs: '>0',
-            overallSavingsBytes: '>=25000',
+            overallSavingsBytes: '35000 +/- 1000',
             items: [
               {
                 url: 'http://localhost:10200/byte-efficiency/script.js',
@@ -155,21 +185,13 @@ const expectations = [
                 url: 'http://localhost:10200/byte-efficiency/bundle.js',
                 totalBytes: '12913 +/- 1000',
                 wastedBytes: '5827 +/- 200',
-                sources: [
-                  '…./b.js',
-                  '…./c.js',
-                  '…webpack/bootstrap',
-                ],
-                sourceBytes: [
-                  '4417 +/- 50',
-                  '2200 +/- 50',
-                  '2809 +/- 50',
-                ],
-                sourceWastedBytes: [
-                  '2191 +/- 50',
-                  '2182 +/- 50',
-                  '1259 +/- 50',
-                ],
+                subItems: {
+                  items: [
+                    {source: '…./b.js', sourceBytes: '4417 +/- 50', sourceWastedBytes: '2191 +/- 50'},
+                    {source: '…./c.js', sourceBytes: '2200 +/- 50', sourceWastedBytes: '2182 +/- 50'},
+                    {source: '…webpack/bootstrap', sourceBytes: '2809 +/- 50', sourceWastedBytes: '1259 +/- 50'},
+                  ],
+                },
               },
             ],
           },
@@ -193,7 +215,7 @@ const expectations = [
           details: {
             overallSavingsBytes: '>60000',
             items: {
-              length: 5,
+              length: 6,
             },
           },
         },
@@ -217,15 +239,38 @@ const expectations = [
             },
           },
         },
+        // Check that images aren't TOO BIG.
         'uses-responsive-images': {
           details: {
-            overallSavingsBytes: '82000 +/- 5000',
-            items: {
-              0: {wastedPercent: '45 +/- 5', url: /lighthouse-1024x680.jpg/},
-              1: {wastedPercent: '72 +/- 5', url: /lighthouse-2048x1356.webp\?size0/},
-              2: {wastedPercent: '45 +/- 5', url: /lighthouse-480x320.webp/},
-              length: 3,
-            },
+            overallSavingsBytes: '113000 +/- 5000',
+            items: [
+              {wastedPercent: '56 +/- 5', url: /lighthouse-1024x680.jpg/},
+              {wastedPercent: '78 +/- 5', url: /lighthouse-2048x1356.webp\?size0/},
+              {wastedPercent: '56 +/- 5', url: /lighthouse-480x320.webp/},
+              {wastedPercent: '20 +/- 5', url: /lighthouse-480x320.jpg/},
+              {wastedPercent: '20 +/- 5', url: /lighthouse-480x320\.jpg\?attributesized/},
+            ],
+          },
+        },
+        // Checks that images aren't TOO SMALL.
+        'image-size-responsive': {
+          details: {
+            items: [
+              // One of these is the ?duplicate variant and another is the
+              // ?cssauto variant but sort order isn't guaranteed
+              // since the pixel diff is equivalent for identical images.
+              {url: /lighthouse-320x212-poor.jpg/},
+              {url: /lighthouse-320x212-poor.jpg/},
+              {url: /lighthouse-320x212-poor.jpg/},
+            ],
+          },
+        },
+        'unsized-images': {
+          details: {
+            items: [
+              {url: /lighthouse-320x212-poor\.jpg/},
+              {url: /lighthouse-320x212-poor\.jpg\?cssauto/},
+            ],
           },
         },
       },

@@ -72,6 +72,13 @@ class Driver {
      */
     this._monitoredUrl = null;
 
+    /**
+     * Used for monitoring frame navigations during gotoURL.
+     * @type {Array<LH.Crdp.Page.Frame>}
+     * @private
+     */
+    this._monitoredUrlNavigations = [];
+
     this.on('Target.attachedToTarget', event => {
       this._handleTargetAttached(event).catch(this._handleEventError);
     });
@@ -85,6 +92,7 @@ class Driver {
     });
 
     this.on('Page.frameNavigated', () => this._clearIsolatedContextId());
+    this.on('Page.frameNavigated', evt => this._monitoredUrlNavigations.push(evt.frame));
 
     connection.on('protocolevent', this._handleProtocolEvent.bind(this));
 
@@ -152,13 +160,13 @@ class Driver {
   }
 
   /**
-   * Computes the ULTRADUMB™ benchmark index to get a rough estimate of device class.
+   * Computes the benchmark index to get a rough estimate of device class.
    * @return {Promise<number>}
    */
   async getBenchmarkIndex() {
     const status = {msg: 'Benchmarking machine', id: 'lh:gather:getBenchmarkIndex'};
     log.time(status);
-    const indexVal = await this.evaluateAsync(`(${pageFunctions.ultradumbBenchmarkString})()`);
+    const indexVal = await this.evaluateAsync(`(${pageFunctions.computeBenchmarkIndexString})()`);
     log.timeEnd(status);
     return indexVal;
   }
@@ -285,7 +293,7 @@ class Driver {
       this._networkStatusMonitor.dispatch(event);
     }
 
-    // @ts-ignore TODO(bckenny): tsc can't type event.params correctly yet,
+    // @ts-expect-error TODO(bckenny): tsc can't type event.params correctly yet,
     // typing as property of union instead of narrowing from union of
     // properties. See https://github.com/Microsoft/TypeScript/pull/22348.
     this._eventEmitter.emit(event.method, event.params);
@@ -997,9 +1005,7 @@ class Driver {
   }
 
   /**
-   * Set up listener for network quiet events and URL redirects. Passed in URL
-   * will be monitored for redirects, with the final loaded URL passed back in
-   * _endNetworkStatusMonitoring.
+   * Set up listener for network quiet events and reset the monitored navigation events.
    * @param {string} startingUrl
    * @return {Promise<void>}
    * @private
@@ -1007,20 +1013,9 @@ class Driver {
   _beginNetworkStatusMonitoring(startingUrl) {
     this._networkStatusMonitor = new NetworkRecorder();
 
-    // Update startingUrl if it's ever redirected.
     this._monitoredUrl = startingUrl;
-    /** @param {LH.Artifacts.NetworkRequest} redirectRequest */
-    const requestLoadedListener = redirectRequest => {
-      // Ignore if this is not a redirected request.
-      if (!redirectRequest.redirectSource) {
-        return;
-      }
-      const earlierRequest = redirectRequest.redirectSource;
-      if (earlierRequest.url === this._monitoredUrl) {
-        this._monitoredUrl = redirectRequest.url;
-      }
-    };
-    this._networkStatusMonitor.on('requestloaded', requestLoadedListener);
+    // Reset back to empty
+    this._monitoredUrlNavigations = [];
 
     return this.sendCommand('Network.enable');
   }
@@ -1028,18 +1023,25 @@ class Driver {
   /**
    * End network status listening. Returns the final, possibly redirected,
    * loaded URL starting with the one passed into _endNetworkStatusMonitoring.
-   * @return {string}
+   * @return {Promise<string>}
    * @private
    */
-  _endNetworkStatusMonitoring() {
+  async _endNetworkStatusMonitoring() {
+    const startingUrl = this._monitoredUrl;
+    const frameNavigations = this._monitoredUrlNavigations;
+
+    const resourceTreeResponse = await this.sendCommand('Page.getResourceTree');
+    const mainFrameId = resourceTreeResponse.frameTree.frame.id;
+    const mainFrameNavigations = frameNavigations.filter(frame => frame.id === mainFrameId);
+    const finalNavigation = mainFrameNavigations[mainFrameNavigations.length - 1];
+
     this._networkStatusMonitor = null;
-    const finalUrl = this._monitoredUrl;
     this._monitoredUrl = null;
+    this._monitoredUrlNavigations = [];
 
-    if (!finalUrl) {
-      throw new Error('Network Status Monitoring ended with an undefined finalUrl');
-    }
-
+    const finalUrl = (finalNavigation && finalNavigation.url) || startingUrl;
+    if (!finalNavigation) log.warn('Driver', 'No detected navigations');
+    if (!finalUrl) throw new Error('Unable to determine finalUrl');
     return finalUrl;
   }
 
@@ -1138,7 +1140,7 @@ class Driver {
     await waitforPageNavigateCmd;
 
     return {
-      finalUrl: this._endNetworkStatusMonitoring(),
+      finalUrl: await this._endNetworkStatusMonitoring(),
       timedOut,
     };
   }
@@ -1203,16 +1205,46 @@ class Driver {
   }
 
   /**
-   * Returns the flattened list of all DOM nodes within the document.
-   * @param {boolean=} pierce Whether to pierce through shadow trees and iframes.
-   *     True by default.
-   * @return {Promise<Array<LH.Crdp.DOM.Node>>} The found nodes, or [], resolved in a promise
+   * Resolves a backend node ID (from a trace event, protocol, etc) to the object ID for use with
+   * `Runtime.callFunctionOn`. `undefined` means the node could not be found.
+   *
+   * @param {number} backendNodeId
+   * @return {Promise<string|undefined>}
    */
-  async getNodesInDocument(pierce = true) {
-    const flattenedDocument = await this.sendCommand('DOM.getFlattenedDocument',
-        {depth: -1, pierce});
+  async resolveNodeIdToObjectId(backendNodeId) {
+    try {
+      const resolveNodeResponse = await this.sendCommand('DOM.resolveNode', {backendNodeId});
+      return resolveNodeResponse.object.objectId;
+    } catch (err) {
+      if (/No node.*found/.test(err.message) ||
+        /Node.*does not belong to the document/.test(err.message)) return undefined;
+      throw err;
+    }
+  }
 
-    return flattenedDocument.nodes ? flattenedDocument.nodes : [];
+  /**
+   * Resolves a proprietary devtools node path (created from page-function.js) to the object ID for use
+   * with `Runtime.callFunctionOn`. `undefined` means the node could not be found.
+   * Requires `DOM.getDocument` to have been called since the object's creation or it will always be `undefined`.
+   *
+   * @param {string} devtoolsNodePath
+   * @return {Promise<string|undefined>}
+   */
+  async resolveDevtoolsNodePathToObjectId(devtoolsNodePath) {
+    try {
+      const {nodeId} = await this.sendCommand('DOM.pushNodeByPathToFrontend', {
+        path: devtoolsNodePath,
+      });
+
+      const {object: {objectId}} = await this.sendCommand('DOM.resolveNode', {
+        nodeId,
+      });
+
+      return objectId;
+    } catch (err) {
+      if (/No node.*found/.test(err.message)) return undefined;
+      throw err;
+    }
   }
 
   /**
@@ -1470,13 +1502,27 @@ class Driver {
   }
 
   /**
+   * Use a RequestIdleCallback shim for tests run with simulated throttling, so that the deadline can be used without
+   * a penalty
+   * @param {LH.Config.Settings} settings
+   * @return {Promise<void>}
+   */
+  async registerRequestIdleCallbackWrap(settings) {
+    if (settings.throttlingMethod === 'simulate') {
+      const scriptStr = `(${pageFunctions.wrapRequestIdleCallbackString})
+        (${settings.throttling.cpuSlowdownMultiplier})`;
+      await this.evaluateScriptOnNewDocument(scriptStr);
+    }
+  }
+
+  /**
    * @param {Array<string>} urls URL patterns to block. Wildcards ('*') are allowed.
    * @return {Promise<void>}
    */
   blockUrlPatterns(urls) {
     return this.sendCommand('Network.setBlockedURLs', {urls})
       .catch(err => {
-        // TODO: remove this handler once m59 hits stable
+        // TODO(COMPAT): remove this handler once m59 hits stable
         if (!/wasn't found/.test(err.message)) {
           throw err;
         }

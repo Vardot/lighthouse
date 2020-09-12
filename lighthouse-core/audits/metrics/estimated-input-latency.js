@@ -14,7 +14,7 @@ const UIStrings = {
   description: 'Estimated Input Latency is an estimate of how long your app takes to respond to ' +
       'user input, in milliseconds, during the busiest 5s window of page load. If your ' +
       'latency is higher than 50 ms, users may perceive your app as laggy. ' +
-      '[Learn more](https://web.dev/estimated-input-latency).',
+      '[Learn more](https://web.dev/estimated-input-latency/).',
 };
 
 const str_ = i18n.createMessageInstanceIdFn(__filename, UIStrings);
@@ -38,9 +38,9 @@ class EstimatedInputLatency extends Audit {
    */
   static get defaultOptions() {
     return {
-      // see https://www.desmos.com/calculator/srv0hqhf7d
-      scorePODR: 50,
-      scoreMedian: 100,
+      // see https://www.desmos.com/calculator/mgd0hjqnal
+      p10: 58,
+      median: 100,
     };
   }
 
@@ -60,9 +60,8 @@ class EstimatedInputLatency extends Audit {
 
     return {
       score: Audit.computeLogNormalScore(
-        metricResult.timing,
-        context.options.scorePODR,
-        context.options.scoreMedian
+        {p10: context.options.p10, median: context.options.median},
+        metricResult.timing
       ),
       numericValue: metricResult.timing,
       numericUnit: 'millisecond',

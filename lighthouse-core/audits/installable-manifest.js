@@ -17,7 +17,7 @@ const UIStrings = {
   /** Description of a Lighthouse audit that tells the user why installability is important for webapps. This is displayed after a user expands the section to see more. No character length limits. 'Learn More' becomes link text to additional documentation. */
   description: 'Browsers can proactively prompt users to add your app to their homescreen, ' +
     'which can lead to higher engagement. ' +
-    '[Learn more](https://web.dev/installable-manifest).',
+    '[Learn more](https://web.dev/installable-manifest/).',
 };
 
 const str_ = i18n.createMessageInstanceIdFn(__filename, UIStrings);
@@ -89,17 +89,20 @@ class InstallableManifest extends MultiCheckAudit {
   /**
    * @param {LH.Artifacts} artifacts
    * @param {LH.Audit.Context} context
-   * @return {Promise<{failures: Array<string>, manifestValues: LH.Artifacts.ManifestValues}>}
+   * @return {Promise<{failures: Array<string>, manifestValues: LH.Artifacts.ManifestValues, manifestUrl: string | null}>}
    */
   static async audit_(artifacts, context) {
     const manifestValues = await ManifestValues.request(artifacts, context);
     const manifestFailures = InstallableManifest.assessManifest(manifestValues);
+
+    const manifestUrl = artifacts.WebAppManifest ? artifacts.WebAppManifest.url : null;
 
     return {
       failures: [
         ...manifestFailures,
       ],
       manifestValues,
+      manifestUrl,
     };
   }
 }
